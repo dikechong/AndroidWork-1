@@ -344,7 +344,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="30px"
             android:orientation="horizontal" >
-
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="36px"
@@ -366,7 +365,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30px"
             android:orientation="horizontal" >
 
             <TextView
@@ -504,11 +502,10 @@
         
        
 
-        <TextView
+        <Button
             android:id="@+id/confirm"
             android:layout_width="match_parent"
             android:layout_height="50px"
-            android:layout_marginTop="36px"
             android:background="#33a9e7"
             android:textColor="#FFFFFF"
             android:gravity="center"

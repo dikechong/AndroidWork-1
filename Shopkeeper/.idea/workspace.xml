@@ -36,28 +36,30 @@
     <favorites_list name="Shopkeeper" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.2811824">
+    <splitter split-orientation="horizontal" split-proportion="0.6831844">
       <split-first>
         <leaf>
           <file leaf-file-name="Fragment2_order.java" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/com/qiaoxi/fragment/Fragment2_order.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="2.468828">
-                  <caret line="203" column="27" selection-start-line="203" selection-start-column="27" selection-end-line="203" selection-end-column="27" />
+                <state vertical-scroll-proportion="0.5764706">
+                  <caret line="172" column="59" selection-start-line="172" selection-start-column="59" selection-end-line="172" selection-end-column="59" />
                   <folding>
                     <element signature="imports" expanded="true" />
-                    <element signature="e#7723#8530#0" expanded="true" />
-                    <element signature="e#8201#8349#0" expanded="true" />
-                    <element signature="e#8348#8349#0" expanded="true" />
-                    <element signature="e#8529#8530#0" expanded="true" />
-                    <element signature="class#12702:14677" expanded="false" />
-                    <element signature="e#14715#14977#0" expanded="true" />
-                    <element signature="e#14976#14977#0" expanded="true" />
-                    <element signature="e#15016#15193#0" expanded="true" />
-                    <element signature="e#15192#15193#0" expanded="true" />
-                    <element signature="e#15231#22979#0" expanded="true" />
-                    <element signature="e#22978#22979#0" expanded="true" />
-                    <element signature="e#23938#23949#0" expanded="false" />
+                    <element signature="e#6223#6635#0" expanded="true" />
+                    <element signature="e#6634#6635#0" expanded="true" />
+                    <element signature="e#8238#9045#0" expanded="true" />
+                    <element signature="e#8716#8864#0" expanded="true" />
+                    <element signature="e#8863#8864#0" expanded="true" />
+                    <element signature="e#9044#9045#0" expanded="true" />
+                    <element signature="class#13217:15192" expanded="false" />
+                    <element signature="e#15230#15492#0" expanded="true" />
+                    <element signature="e#15491#15492#0" expanded="true" />
+                    <element signature="e#15531#15708#0" expanded="true" />
+                    <element signature="e#15707#15708#0" expanded="true" />
+                    <element signature="e#15746#23494#0" expanded="true" />
+                    <element signature="e#23493#23494#0" expanded="true" />
+                    <element signature="e#24453#24464#0" expanded="false" />
                     <element signature="class#ToastMessageTask#0;class#Fragment2_order#0" expanded="false" />
                     <element signature="class#ClickListener#0;class#Fragment2_order#0" expanded="false" />
                   </folding>
@@ -108,8 +110,8 @@
                 <state />
               </provider>
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="1.6575">
-                  <caret line="315" column="36" selection-start-line="315" selection-start-column="36" selection-end-line="315" selection-end-column="36" />
+                <state vertical-scroll-proportion="0.48174322">
+                  <caret line="507" column="40" selection-start-line="507" selection-start-column="40" selection-end-line="507" selection-end-column="40" />
                   <folding />
                 </state>
               </provider>
@@ -920,9 +922,9 @@
         <option value="$PROJECT_DIR$/src/com/qiaoxi/shopkeeper/MainActivity.java" />
         <option value="$PROJECT_DIR$/src/com/qiaoxi/adapter/PaymentListView.java" />
         <option value="$PROJECT_DIR$/src/com/qiaoxi/bean/Global.java" />
-        <option value="$PROJECT_DIR$/src/com/qiaoxi/fragment/Fragment2_order.java" />
         <option value="$PROJECT_DIR$/res/layout/payment_listview_item.xml" />
         <option value="$PROJECT_DIR$/res/layout/fragment2_order.xml" />
+        <option value="$PROJECT_DIR$/src/com/qiaoxi/fragment/Fragment2_order.java" />
       </list>
     </option>
   </component>
@@ -1387,8 +1389,8 @@
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Android Monitor" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4791889" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32083791" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4791889" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32083791" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32977587" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
@@ -1628,38 +1630,40 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/qiaoxi/fragment/Fragment2_order.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="2.468828">
-          <caret line="203" column="27" selection-start-line="203" selection-start-column="27" selection-end-line="203" selection-end-column="27" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#7723#8530#0" expanded="true" />
-            <element signature="e#8201#8349#0" expanded="true" />
-            <element signature="e#8348#8349#0" expanded="true" />
-            <element signature="e#8529#8530#0" expanded="true" />
-            <element signature="class#12702:14677" expanded="false" />
-            <element signature="e#14715#14977#0" expanded="true" />
-            <element signature="e#14976#14977#0" expanded="true" />
-            <element signature="e#15016#15193#0" expanded="true" />
-            <element signature="e#15192#15193#0" expanded="true" />
-            <element signature="e#15231#22979#0" expanded="true" />
-            <element signature="e#22978#22979#0" expanded="true" />
-            <element signature="e#23938#23949#0" expanded="false" />
-            <element signature="class#ToastMessageTask#0;class#Fragment2_order#0" expanded="false" />
-            <element signature="class#ClickListener#0;class#Fragment2_order#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/res/layout/fragment2_order.xml">
       <provider editor-type-id="android-designer">
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.6575">
-          <caret line="315" column="36" selection-start-line="315" selection-start-column="36" selection-end-line="315" selection-end-column="36" />
+        <state vertical-scroll-proportion="0.48174322">
+          <caret line="507" column="40" selection-start-line="507" selection-start-column="40" selection-end-line="507" selection-end-column="40" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/qiaoxi/fragment/Fragment2_order.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5764706">
+          <caret line="172" column="59" selection-start-line="172" selection-start-column="59" selection-end-line="172" selection-end-column="59" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#6223#6635#0" expanded="true" />
+            <element signature="e#6634#6635#0" expanded="true" />
+            <element signature="e#8238#9045#0" expanded="true" />
+            <element signature="e#8716#8864#0" expanded="true" />
+            <element signature="e#8863#8864#0" expanded="true" />
+            <element signature="e#9044#9045#0" expanded="true" />
+            <element signature="class#13217:15192" expanded="false" />
+            <element signature="e#15230#15492#0" expanded="true" />
+            <element signature="e#15491#15492#0" expanded="true" />
+            <element signature="e#15531#15708#0" expanded="true" />
+            <element signature="e#15707#15708#0" expanded="true" />
+            <element signature="e#15746#23494#0" expanded="true" />
+            <element signature="e#23493#23494#0" expanded="true" />
+            <element signature="e#24453#24464#0" expanded="false" />
+            <element signature="class#ToastMessageTask#0;class#Fragment2_order#0" expanded="false" />
+            <element signature="class#ClickListener#0;class#Fragment2_order#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

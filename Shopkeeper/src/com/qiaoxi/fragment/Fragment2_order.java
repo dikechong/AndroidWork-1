@@ -148,7 +148,7 @@ import android.widget.Toast;
 		add_to_menu = (Button) v.findViewById(R.id.add_to_menu);
 		edi_in_order = (EditText) v.findViewById(R.id.edi_in_order);
 		spinner = (Spinner) v.findViewById(R.id.spinner_discount);
-		confirm = (TextView) v.findViewById(R.id.confirm);
+		confirm = (Button) v.findViewById(R.id.confirm);
 		should_pay = (TextView) v.findViewById(R.id.should_pay);
 		already_pay = (TextView) v.findViewById(R.id.already_pay);
 		left_to_pay = (TextView) v.findViewById(R.id.left_to_pay);
@@ -169,6 +169,18 @@ import android.widget.Toast;
 
 		/*TODO:添加部分*/
 		discount_pay = (TextView) v.findViewById(R.id.discount_pay);
+		//TODO:支付成功之后的操作
+		//TODO：其中折后价格在discount_pay中，支付金额以及支付方式在payment_map中
+		confirm.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				if(left_to_pay.getText().equals("0.0") && !Double.valueOf(should_pay.getText().toString()).equals(0.0) ){
+					Toast.makeText(getActivity(),"支付成功",Toast.LENGTH_SHORT).show();
+				}else if (!Double.valueOf(should_pay.getText().toString()).equals(0.0)){
+					Toast.makeText(getActivity(),"支付失败",Toast.LENGTH_SHORT).show();
+				}
+			}
+		});
 
 		should_pay.addTextChangedListener(new TextWatcher() {
 			@Override
