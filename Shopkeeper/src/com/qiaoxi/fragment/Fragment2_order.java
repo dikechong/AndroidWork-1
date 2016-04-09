@@ -37,7 +37,11 @@ import com.qiaoxi.sqlite.DatabaseHelper;
 import android.R.integer;
 import android.annotation.SuppressLint;
 import android.app.Fragment;
+import android.content.BroadcastReceiver;
 import android.content.ContentValues;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.ColorStateList;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -75,7 +79,7 @@ import android.widget.Toast;
 
 @SuppressLint("ValidFragment") public class Fragment2_order extends Fragment {
 	//获取备注的三个文本框
-
+	String TAG = getClass().getName();
 	private TextView tv_note1,tv_note2,tv_note3,num_in_order,dishnum_in_order,
 			dishname_in_order,price1_in_order,price2_in_order,confirm,send;
 	private EditText discount;
@@ -94,6 +98,7 @@ import android.widget.Toast;
 	private String DeskId;
 	String [] allDiscountMethod;
 	Map<String, Double> map;
+	Map<String, Double> payment_map;
 	Spinner spinner ;
 	String cookies,discountMethod;
 	DatabaseHelper dbhelper;
@@ -102,11 +107,18 @@ import android.widget.Toast;
 	private String str;
 	private SimpleDateFormat formatter;
 
-
+	PaymentReceiver paymentReceiver;
 	ArrayList<String> payment = new ArrayList<>();
 
 	public Fragment2_order(String deskid){
 		this.DeskId = deskid;
+	}
+
+	@Override
+	public void onDestroyView() {
+		super.onDestroyView();
+		Global.should_pay = 0.0;
+		getActivity().unregisterReceiver(paymentReceiver);
 	}
 
 	@Override
@@ -147,25 +159,32 @@ import android.widget.Toast;
 
 		get.setVisibility(View.INVISIBLE);
 		edi_in_order.setInputType(InputType.TYPE_CLASS_TEXT);
-
+		credit = (EditText)v.findViewById(R.id.credit);
 
 		cookies = Global.cookie;
 		discountMethod = Global.discount;
 
 		dbhelper = new DatabaseHelper(getActivity(), 1);
 
-		/*添加部分*/
+		/*TODO:添加部分*/
+		paymentReceiver = new PaymentReceiver();
+		IntentFilter payment_filter = new IntentFilter();
+		payment_filter.addAction("cn.saltyx.shiyan.paymentAdapter.MONEY_CHANGED");
+		getActivity().registerReceiver(paymentReceiver, payment_filter);
 		lv_payment = (ListView)v.findViewById(R.id.payment_listview);
+		payment_map = new HashMap<>();
 
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
 				while (true){
+					payment_map.clear();
 					Cursor cursor = dbhelper.query(DBManagerContract.PayKindsTable.TABLE_NAME,
 							new String[]{DBManagerContract.PayKindsTable.COLUMN_NAME_Name},null,null,null,null,null,null);
 					int tmp_index = 0;
 					while(cursor.moveToNext()){
 						payment.add(tmp_index++, cursor.getString(0));
+						payment_map.put(cursor.getString(0), 0.0);
 					}
 					getActivity().runOnUiThread(new Runnable() {
 						@Override
@@ -186,84 +205,48 @@ import android.widget.Toast;
 			}
 		}).start();
 
+		discount.addTextChangedListener(new TextWatcher() {
+			@Override
+			public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
+			}
+			@Override
+			public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+				Double d  = 100.0;
+				try{
+					d = Double.valueOf(charSequence.toString());
+				}catch (Exception e){
+					try{
+						charSequence = charSequence.subSequence(0,charSequence.length()-1);
+						d = Double.valueOf(charSequence.toString());
+					}catch (Exception e1){
+						e1.printStackTrace();
+					}
+					e.printStackTrace();
+					Log.d(TAG, e.toString());
+				}
+				should_pay.setText(String.valueOf(Global.should_pay*d / 100));
+				float left = Float.valueOf(should_pay.getText().toString().trim())
+						-Float.valueOf(already_pay.getText().toString().trim());
+				float giveback = -left;
 
+				if(giveback<0){
+					giveback = 0;
+				}
+				if(left<0){
+					left = 0;
+				}
+				left_to_pay.setText(String.valueOf(left));
 
-		/*****************************************/
+				give_back.setText(String.valueOf(giveback));
+			}
 
+			@Override
+			public void afterTextChanged(Editable editable) {
 
-//		credit.addTextChangedListener(new TextWatcher() {
-//
-//			@Override
-//			public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
-//				// TODO Auto-generated method stub
-//				if(!credit.getText().toString().trim().equals("")){
-//					double al = Double.valueOf(cash.getText().toString().trim())+Double.valueOf(credit.getText().toString().trim());
-//					already_pay.setText(String.valueOf(al));
-//					double left = Double.valueOf(should_pay.getText().toString().trim())-Double.valueOf(already_pay.getText().toString().trim());
-//					double giveback = -left;
-//					if(giveback<0){
-//						giveback = 0;
-//					}
-//					if(left<0){
-//						left = 0;
-//					}
-//					left_to_pay.setText(String.valueOf(left));
-//
-//					give_back.setText(String.valueOf(giveback));
-//
-//				}
-//			}
-//
-//			@Override
-//			public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
-//										  int arg3) {
-//				// TODO Auto-generated method stub
-//
-//			}
-//
-//			@Override
-//			public void afterTextChanged(Editable arg0) {
-//				// TODO Auto-generated method stub
-//
-//			}
-//		});
-
-//		cash.addTextChangedListener(new TextWatcher() {
-//
-//			@Override
-//			public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
-//				// TODO Auto-generated method stub
-//				if(!cash.getText().toString().trim().equals("")){
-//					double al = Double.valueOf(cash.getText().toString().trim())+Double.valueOf(credit.getText().toString().trim());
-//					already_pay.setText(String.valueOf(al));
-//					double left = Double.valueOf(should_pay.getText().toString().trim())-Double.valueOf(already_pay.getText().toString().trim());
-//					double giveback = -left;
-//					if(giveback<0){
-//						giveback = 0;
-//					}
-//					if(left<0){
-//						left = 0;
-//					}
-//					left_to_pay.setText(String.valueOf(left));
-//
-//					give_back.setText(String.valueOf(giveback));
-//
-//				}
-//			}
-//
-//			@Override
-//			public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
-//										  int arg3) {
-//				// TODO Auto-generated method stub
-//
-//			}
-//
-//			@Override
-//			public void afterTextChanged(Editable arg0) {
-//				// TODO Auto-generated method stub
-//			}
-//		});
+			}
+		});
+		/****************************************/
 
 		try{
             /*一下均为会员打折方案
@@ -278,7 +261,7 @@ import android.widget.Toast;
 			allDiscountMethod = new String[timeDiscount.length()+1];//去掉会员打折
 			map = new HashMap<>();
 			TimeDiscounts[] timeDiscountses = new TimeDiscounts[timeDiscount.length()];
-			Integer index = 0;
+			Integer index = 0;allDiscountMethod[index++] = "自定义折扣";
 			for (int i=0; i<timeDiscount.length(); i++){
 				//如果当前系统时间不再优惠范围内是不会收到相应信息的
 				JSONObject tmpJson = timeDiscount.getJSONObject(i);
@@ -304,7 +287,7 @@ import android.widget.Toast;
 			}
 			//显示的打折方案
 			//此时Spiner适配器
-			allDiscountMethod[index] = "自定义折扣";
+
 			ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item
 					, allDiscountMethod);
 			arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -321,12 +304,12 @@ import android.widget.Toast;
 						}else
 						{
 							discount.setEnabled(false);
-							discount.setText(String.valueOf((1-map.get(str))*100)+"%");
+							discount.setText(String.valueOf(map.get(str)*100)+"%");
+							//discount.setText(String.valueOf((1-map.get(str))*100)+"%");
 						}
 
 					} catch (Exception e) {
 						e.printStackTrace();
-						// new ToastMessageTask().execute(e.toString());
 					}
 
 				}
@@ -351,7 +334,7 @@ import android.widget.Toast;
 		edi_in_order.addTextChangedListener(new TextWatcher() {
 			@Override
 			public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
-				// TODO Auto-generated method stub
+
 				DatabaseHelper dbhelper = new DatabaseHelper(getActivity(), 1);
 				String tex = edi_in_order.getText().toString().trim();
 				String table = DBManagerContract.MenusTable.TABLE_NAME;
@@ -395,13 +378,13 @@ import android.widget.Toast;
 			@Override
 			public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
 										  int arg3) {
-				// TODO Auto-generated method stub
+
 
 			}
 
 			@Override
 			public void afterTextChanged(Editable arg0) {
-				// TODO Auto-generated method stub
+
 
 			}
 		});
@@ -410,7 +393,7 @@ import android.widget.Toast;
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+
 				String text = (String) num_in_order.getText();
 				if(!text.equals("0")){
 					num_in_order.setText(String.valueOf(Integer.valueOf((String) num_in_order.getText())-1));
@@ -422,7 +405,7 @@ import android.widget.Toast;
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+
 				num_in_order.setText(String.valueOf(Integer.valueOf((String) num_in_order.getText())+1));
 			}
 		});
@@ -431,7 +414,6 @@ import android.widget.Toast;
 		add_to_menu.setOnClickListener(new OnClickListener() {
 			@SuppressLint("NewApi") @Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
 				if(!dishnum_in_order.getText().toString().trim().equals("")){
 					LayoutParams params;
 					final MenuItem me = new MenuItem(getActivity());
@@ -446,7 +428,7 @@ import android.widget.Toast;
 
 						@Override
 						public void subClick() {
-							// TODO Auto-generated method stub
+
 							if(me.getcount()==0){
 								linear_inventory.removeView(me);
 								String sele = "DinId=? and MenuId=?";
@@ -466,7 +448,7 @@ import android.widget.Toast;
 
 						@Override
 						public void plusClick() {
-							// TODO Auto-generated method stub
+
 							ContentValues values = new ContentValues();
 							values.put("_Count", me.getcount());
 							String sele = "DinId=? and MenuId=?";
@@ -477,9 +459,7 @@ import android.widget.Toast;
 
 						@Override
 						public void notesClick() {
-							// TODO Auto-generated method stub
 
-							// TODO Auto-generated method stub
 
 							//获得填充的视图
 							View view=View.inflate(getActivity(), R.layout.editnote, null);
@@ -517,7 +497,7 @@ import android.widget.Toast;
 
 								@Override
 								public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-									// TODO Auto-generated method stub
+
 									//是否点击了添加按钮
 									if(position==noteSource.size()){
 										// 执行添加
@@ -585,7 +565,7 @@ import android.widget.Toast;
 					try {
 						ctest.close();
 					} catch (Exception e) {
-						// TODO: handle exception
+
 					}
 					ContentValues values = new ContentValues();
 					values.put("DineId", Global.ordernumber);
@@ -604,6 +584,7 @@ import android.widget.Toast;
 						TextView text = (TextView) r.getChildAt(3);
 						totolprice += Double.valueOf(text.getText().toString().trim());
 					}
+					Global.should_pay = totolprice;
 					should_pay.setText(String.valueOf(totolprice));
 					//already_pay.setText("0");
 					double left = totolprice-Double.valueOf(already_pay.getText().toString().trim());
@@ -629,12 +610,11 @@ import android.widget.Toast;
 		//绑定侦听器
 		iv_editNote.setOnClickListener(listener);
 
-
 		send.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+
 				if(Double.valueOf(left_to_pay.getText().toString().trim())==0 && (Double.valueOf(should_pay.getText().toString().trim())!=0)){
 
 					final String json ="{\"Cart\": {\"HeadCount\": "+linear_inventory.getChildCount()+",\"Price\": "+100+",\"PriceInPoints\": null,\"Invoice\":null,\"Desk\": {\"Id\": \"102\"},\"PayKind\": {\"Id\":1},\"OrderedMenus\":[{\"Id\":10004,\"Ordered\": 2,\"Remarks\":null}]},\"CartAddition\": {\"UserId\": 002}}";
@@ -726,16 +706,36 @@ import android.widget.Toast;
 				else if(Double.valueOf(left_to_pay.getText().toString().trim())!=0){
 					Toast.makeText(getActivity(), "订单未完全支付", Toast.LENGTH_LONG).show();
 				}
-
-
-
-
-
 			}
 		});
 
 	}
+	/*TODO: Payment*/
+	class PaymentReceiver extends BroadcastReceiver{
+		@Override
+		public void onReceive(Context context, Intent intent){
 
+			String t_payment = intent.getStringExtra("payment");
+			Double t_money = intent.getDoubleExtra("money",100);
+			Global.al -= payment_map.get(t_payment);
+			Global.al += t_money;
+			payment_map.put(t_payment, t_money);
+			Log.d(TAG, String.valueOf(t_money));
+			already_pay.setText(String.valueOf(Global.al));
+			double left = Double.valueOf(should_pay.getText().toString().trim())
+					-Double.valueOf(already_pay.getText().toString().trim());
+			double giveback = -left;
+			if(giveback<0){
+				giveback = 0;
+			}
+			if(left<0){
+				left = 0;
+			}
+			left_to_pay.setText(String.valueOf(left));
+
+			give_back.setText(String.valueOf(giveback));
+		}
+	}
 
 	public class ToastMessageTask extends AsyncTask<String, String, String> {
 		String toastMessage;
@@ -765,7 +765,7 @@ import android.widget.Toast;
 
 		@SuppressLint("NewApi") @Override
 		public void onClick(View v) {
-			// TODO Auto-generated method stub
+
 			int id=v.getId();
 			if(iv_editNote.getId()==id){
 				//获得填充的视图

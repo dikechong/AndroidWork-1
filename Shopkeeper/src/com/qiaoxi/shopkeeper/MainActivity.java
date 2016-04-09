@@ -66,6 +66,7 @@ public class MainActivity extends Activity {
 	TEMP temp;
 	String TAG = getClass().getName();
 	DineInfoReceiver dineInfoReceiver;
+
 	String cookies;
 
 	@Override
@@ -117,6 +118,7 @@ public class MainActivity extends Activity {
         IntentFilter temp_f = new IntentFilter();
         temp_f.addAction("cn.saltyx.shiyan.initdbservice.INITDBSERVICE");
         registerReceiver(temp, temp_f);
+
     }
     public void onStart(){
         super.onStart();
@@ -126,6 +128,8 @@ public class MainActivity extends Activity {
         intent.setPackage("com.qiaoxi.shopkeeper");/*改成你的*/
         startService(intent);
         Log.i(TAG, "serviceOn");
+
+
         /*CHANGE tip*/
         /*Intent intent1 = new Intent(InitDBService.ACTION);
         intent1.putExtra("PackageName", "com.qiaoxi.shopkeeper");
@@ -151,6 +155,7 @@ public class MainActivity extends Activity {
         unregisterReceiver(dineInfoReceiver);
         unregisterReceiver(temp);
     }
+
 
     class DineInfoReceiver extends BroadcastReceiver {
         @Override

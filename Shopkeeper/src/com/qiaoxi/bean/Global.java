@@ -23,4 +23,9 @@ public class Global {
     public static String ordernumber;
     public static String waiterid;
     public static String deskid;
-}
+
+    public static Double should_pay = 0.0;
+    public static Double al = 0.0;//已经支付的
+    public static Double left = 0.0;//剩下未支付的
+    public static Double giveback = 0.0 ;//
+ }

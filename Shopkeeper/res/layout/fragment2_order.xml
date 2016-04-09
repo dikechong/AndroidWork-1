@@ -288,7 +288,7 @@
             android:textColor="#000000"
             android:text="0" />
     </LinearLayout>
-        
+ -->
          <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -304,8 +304,9 @@
                 android:textColor="#000000"
                 android:text="积分抵扣" />
 
-            <EditText
+            <EditText android:enabled="false"
                 android:id="@+id/credit"
+                android:singleLine="true"
                 android:layout_width="0dp"
                 android:layout_height="45px"
                 android:layout_weight="1"
@@ -314,7 +315,7 @@
                 android:gravity="center"
                 android:text="0" />
         </LinearLayout>
- -->
+
         
 
         <Spinner
@@ -327,14 +328,16 @@
         <EditText
             android:id="@+id/discount"
             android:ems="8"
+            android:singleLine="true"
             android:layout_width="match_parent"
             android:layout_height="36px"
             android:layout_marginTop="14px"
             android:background="@drawable/inputbox"
             android:gravity="center_vertical"
             android:paddingLeft="5px"
+            android:hint="输入打折整数"
             android:textColor="#000000"
-            android:text="折扣率 ：100%" />
+            android:text="100%" />
 
         <LinearLayout
             android:layout_width="match_parent"
