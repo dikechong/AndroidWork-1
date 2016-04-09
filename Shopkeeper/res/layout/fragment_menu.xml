@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f1f1f1"
+    android:gravity="center_horizontal"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="200px"
+        android:layout_height="1dp"
+        android:background="#47A9E7" >
+    </LinearLayout>
+
+    <RadioGroup
+        android:id="@+id/rg"
+        android:layout_width="200px"
+        android:layout_height="wrap_content"
+        android:background="#f1f1f1"
+        android:orientation="vertical" >
+
+        <RadioButton
+            android:id="@+id/radio_dl"
+            android:layout_width="200px"
+            android:layout_height="50px"
+            android:background="@drawable/radio0"
+            android:button="@null"
+            android:gravity="center"
+            android:text="大类设置"
+            android:textColor="#33a9e7" />
+
+        <RadioButton
+            android:id="@+id/radio_xl"
+            android:layout_width="200px"
+            android:layout_height="50px"
+            android:background="@drawable/radio0"
+            android:button="@null"
+            android:gravity="center"
+            android:text="小类设置"
+            android:textColor="#33a9e7" />
+
+        <RadioButton
+            android:id="@+id/radio_kw"
+            android:layout_width="200px"
+            android:layout_height="50px"
+            android:background="@drawable/radio0"
+            android:button="@null"
+            android:gravity="center"
+            android:text="口味设置"
+            android:textColor="#33a9e7" />
+
+        <RadioButton
+            android:id="@+id/radio_cp"
+            android:layout_width="200px"
+            android:layout_height="50px"
+            android:background="@drawable/radio0"
+            android:button="@null"
+            android:gravity="center"
+            android:text="菜品设置"
+            android:textColor="#33a9e7" />
+
+        <RadioButton
+            android:id="@+id/radio_ts"
+            android:layout_width="200px"
+            android:layout_height="50px"
+            android:background="@drawable/radio0"
+            android:button="@null"
+            android:gravity="center"
+            android:text="特色菜设置"
+            android:textColor="#33a9e7" />
+    </RadioGroup>
+
+    
+
+    
+
+    
+
+</LinearLayout>

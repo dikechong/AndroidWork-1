@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:orientation="vertical" 
+    android:gravity="center"
+    android:paddingTop="5dp">
+    <TextView android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:background="@drawable/adddish_corner"
+        android:text="添加菜品"
+        android:id="@+id/tv_adddish"
+        android:textSize="40dp"
+        android:gravity="center"
+        android:textColor="@android:color/black"/>
+	
+</LinearLayout>

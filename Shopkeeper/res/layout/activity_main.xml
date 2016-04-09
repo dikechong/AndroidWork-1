@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/login_bg"
+    tools:context=".MainActivity" >
+
+    <ImageView
+        android:id="@+id/iview"
+        android:layout_width="170px"
+        android:layout_height="340px "
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="134px"
+        android:src="@drawable/logo" />
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="292px"
+        android:layout_height="44px"
+        android:layout_below="@id/iview"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10px"
+        android:background="@drawable/styleedit"
+        android:hint="请输入用户名"
+        android:paddingLeft="5dp"
+        android:textColor="#000"
+        android:textSize="26px" />
+
+    <EditText
+        android:id="@+id/editText1"
+        android:layout_width="292px"
+        android:layout_height="44px"
+        android:layout_below="@id/editText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10px"
+        android:background="@drawable/styleedit"
+        android:hint="请输入密码"
+        android:paddingLeft="5dp"
+        android:password="true"
+        android:textColor="#000"
+        android:textSize="26px" />
+
+    <Button
+        android:id="@+id/login"
+        android:layout_width="292px"
+        android:layout_height="44px"
+        android:layout_below="@id/editText1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10px"
+        android:background="@drawable/login_button_on" />
+
+</RelativeLayout>

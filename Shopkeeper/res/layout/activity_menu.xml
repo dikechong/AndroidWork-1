@@ -1,0 +1,122 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    tools:context="com.qiaoxi.shopkeeper.MainActivity" >
+
+    <LinearLayout
+        android:id="@+id/ll_dhl"
+        android:layout_width="match_parent"
+        android:layout_height="90px"
+        android:background="#33a9e7"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="200px"
+            android:id="@+id/title_radiogroup"
+            android:orientation="horizontal" >
+
+            <RadioButton
+                android:id="@+id/radio_1"
+                android:layout_width="100px"
+                android:layout_height="55px"
+                android:background="@drawable/radio1"
+                android:button="@null" />
+
+            <RadioButton
+                android:id="@+id/radio_2"
+                android:layout_width="100px"
+                android:layout_height="55px"
+                android:layout_marginLeft="10px"
+                android:background="@drawable/radio2"
+                android:button="@null" />
+
+            <RadioButton
+                android:id="@+id/radio_3"
+                android:layout_width="100px"
+                android:layout_height="55px"
+                android:layout_marginLeft="10px"
+                android:background="@drawable/radio3"
+                android:button="@null" />
+
+            <RadioButton
+                android:id="@+id/radio_4"
+                android:layout_width="100px"
+                android:layout_height="55px"
+                android:layout_marginLeft="10px"
+                android:background="@drawable/radio4"
+                android:button="@null" />
+
+            <RadioButton
+                android:id="@+id/radio_5"
+                android:layout_width="100px"
+                android:layout_height="55px"
+                android:layout_marginLeft="10px"
+                android:background="@drawable/radio5"
+                android:button="@null" />
+
+            <RadioButton
+                android:id="@+id/radio_6"
+                android:layout_width="100px"
+                android:layout_height="55px"
+                android:layout_marginLeft="10px"
+                android:background="@drawable/radio6"
+                android:button="@null" />
+
+            <RadioButton
+                android:id="@+id/radio_7"
+                android:layout_width="125px"
+                android:layout_height="55px"
+                android:layout_marginLeft="10px"
+                android:background="@drawable/radio7"
+                android:button="@null" />
+
+            <RadioButton
+                android:id="@+id/radio_8"
+                android:layout_width="100px"
+                android:layout_height="55px"
+                android:layout_marginLeft="10px"
+                android:background="@drawable/radio8"
+                android:button="@null" />
+            
+             <RadioButton
+	            android:id="@+id/radio_9"
+	            android:layout_width="60px"
+	            android:layout_height="60px"
+	            android:layout_marginLeft="15px"
+	            android:background="@drawable/user_photo"
+	            android:button="@null" />
+        </RadioGroup>
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/iv_logo"
+        android:layout_width="155px"
+        android:layout_height="155px"
+        android:src="@drawable/logo_menu" />
+
+    <LinearLayout
+        android:id="@+id/fragment1"
+        android:layout_width="155px"
+        android:layout_height="match_parent"
+        android:layout_below="@id/iv_logo"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingTop="20px" >
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/fragment2"
+        android:layout_width="1080px"
+        android:layout_height="match_parent"
+        android:layout_below="@id/ll_dhl"
+        android:layout_toRightOf="@id/iv_logo"
+        android:orientation="horizontal" >
+    </LinearLayout>
+
+</RelativeLayout>
