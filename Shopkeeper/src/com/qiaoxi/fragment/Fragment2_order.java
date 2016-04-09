@@ -109,6 +109,7 @@ import android.widget.Toast;
 
 	PaymentReceiver paymentReceiver;
 	ArrayList<String> payment = new ArrayList<>();
+	TextView discount_pay;
 
 	public Fragment2_order(String deskid){
 		this.DeskId = deskid;
@@ -116,8 +117,8 @@ import android.widget.Toast;
 
 	@Override
 	public void onDestroyView() {
+		discount_pay.setText("0");
 		super.onDestroyView();
-		Global.should_pay = 0.0;
 		getActivity().unregisterReceiver(paymentReceiver);
 	}
 
@@ -167,6 +168,55 @@ import android.widget.Toast;
 		dbhelper = new DatabaseHelper(getActivity(), 1);
 
 		/*TODO:添加部分*/
+		discount_pay = (TextView) v.findViewById(R.id.discount_pay);
+
+		should_pay.addTextChangedListener(new TextWatcher() {
+			@Override
+			public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+			}
+
+			@Override
+			public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+				Double d  = 100.0;
+				try{
+					d = Double.valueOf(discount.getText().toString());
+				}catch (Exception e){
+					try{
+						String ss = discount.getText().toString().substring(0,discount.getText().length()-1);
+						d = Double.valueOf(ss.toString());
+					}catch (Exception e1){
+						e1.printStackTrace();
+					}
+					e.printStackTrace();
+					Log.d(TAG, e.toString());
+				}
+				Double _t = Double.valueOf(charSequence.toString());
+				discount_pay.setText(String.valueOf(_t*d / 100));
+				//should_pay.setText(String.valueOf(Global.should_pay*d / 100));
+				float left = Float.valueOf(discount_pay.getText().toString().trim())
+						-Float.valueOf(already_pay.getText().toString().trim());
+				float giveback = -left;
+				if(giveback<0){
+					giveback = 0;
+				}
+				if(left<0){
+					left = 0;
+				}
+				left_to_pay.setText(String.valueOf(left));
+
+				give_back.setText(String.valueOf(giveback));
+			}
+
+			@Override
+			public void afterTextChanged(Editable editable) {
+
+			}
+		});
+
+
+
 		paymentReceiver = new PaymentReceiver();
 		IntentFilter payment_filter = new IntentFilter();
 		payment_filter.addAction("cn.saltyx.shiyan.paymentAdapter.MONEY_CHANGED");
@@ -225,8 +275,10 @@ import android.widget.Toast;
 					e.printStackTrace();
 					Log.d(TAG, e.toString());
 				}
-				should_pay.setText(String.valueOf(Global.should_pay*d / 100));
-				float left = Float.valueOf(should_pay.getText().toString().trim())
+				Double _t = Double.valueOf(should_pay.getText().toString());
+				discount_pay.setText(String.valueOf(_t*d / 100));
+				//should_pay.setText(String.valueOf(Global.should_pay*d / 100));
+				float left = Float.valueOf(discount_pay.getText().toString().trim())
 						-Float.valueOf(already_pay.getText().toString().trim());
 				float giveback = -left;
 
@@ -584,10 +636,9 @@ import android.widget.Toast;
 						TextView text = (TextView) r.getChildAt(3);
 						totolprice += Double.valueOf(text.getText().toString().trim());
 					}
-					Global.should_pay = totolprice;
 					should_pay.setText(String.valueOf(totolprice));
 					//already_pay.setText("0");
-					double left = totolprice-Double.valueOf(already_pay.getText().toString().trim());
+					double left = Double.valueOf(discount_pay.getText().toString())-Double.valueOf(already_pay.getText().toString().trim());
 					double giveback = -left;
 					if(giveback<0){
 						giveback = 0;
@@ -722,7 +773,7 @@ import android.widget.Toast;
 			payment_map.put(t_payment, t_money);
 			Log.d(TAG, String.valueOf(t_money));
 			already_pay.setText(String.valueOf(Global.al));
-			double left = Double.valueOf(should_pay.getText().toString().trim())
+			double left = Double.valueOf(discount_pay.getText().toString().trim())
 					-Double.valueOf(already_pay.getText().toString().trim());
 			double giveback = -left;
 			if(giveback<0){
