@@ -20,6 +20,7 @@ import org.json.JSONObject;
 import com.qiaoxi.adapter.NoteGridAdapter;
 import com.qiaoxi.adapter.PaymentListView;
 import com.qiaoxi.bean.Global;
+import com.qiaoxi.shopkeeper.ExitApplication;
 import com.qiaoxi.shopkeeper.LoginActivity;
 import com.qiaoxi.shopkeeper.MainActivity;
 import com.qiaoxi.shopkeeper.MenuItem;
@@ -101,6 +102,9 @@ import android.widget.Toast;
 	private String str;
 	private SimpleDateFormat formatter;
 
+
+	ArrayList<String> payment = new ArrayList<>();
+
 	public Fragment2_order(String deskid){
 		this.DeskId = deskid;
 	}
@@ -135,8 +139,7 @@ import android.widget.Toast;
 		should_pay = (TextView) v.findViewById(R.id.should_pay);
 		already_pay = (TextView) v.findViewById(R.id.already_pay);
 		left_to_pay = (TextView) v.findViewById(R.id.left_to_pay);
-//		cash = (EditText) v.findViewById(R.id.cash);
-//		credit = (EditText) v.findViewById(R.id.credit);
+
 		get = (TextView) v.findViewById(R.id.get);
 		give_back = (TextView) v.findViewById(R.id.give_back);
 		discount = (EditText) v.findViewById(R.id.discount); discount.setEnabled(false);//不可编辑
@@ -144,8 +147,7 @@ import android.widget.Toast;
 
 		get.setVisibility(View.INVISIBLE);
 		edi_in_order.setInputType(InputType.TYPE_CLASS_TEXT);
-//		cash.setInputType(InputType.TYPE_CLASS_NUMBER);
-//		credit.setInputType(InputType.TYPE_CLASS_NUMBER);
+
 
 		cookies = Global.cookie;
 		discountMethod = Global.discount;
@@ -155,16 +157,37 @@ import android.widget.Toast;
 		/*添加部分*/
 		lv_payment = (ListView)v.findViewById(R.id.payment_listview);
 
-		ArrayList<String> payment = new ArrayList<>();
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				while (true){
+					Cursor cursor = dbhelper.query(DBManagerContract.PayKindsTable.TABLE_NAME,
+							new String[]{DBManagerContract.PayKindsTable.COLUMN_NAME_Name},null,null,null,null,null,null);
+					int tmp_index = 0;
+					while(cursor.moveToNext()){
+						payment.add(tmp_index++, cursor.getString(0));
+					}
+					getActivity().runOnUiThread(new Runnable() {
+						@Override
+						public void run() {
+							lv_payment.setAdapter(new PaymentListView(getActivity(), payment));
+						}
+					});
 
-		Cursor cursor = dbhelper.query(DBManagerContract.PayKindsTable.TABLE_NAME,
-				new String[]{DBManagerContract.PayKindsTable.COLUMN_NAME_Name},null,null,null,null,null,null);
-		int tmp_index = 0;
-		while(cursor.moveToNext()){
-			payment.add(tmp_index++, cursor.getString(0));
-		}
+					if (tmp_index == 0){
+						try{
+							Thread.currentThread().sleep(1000);
+						}catch (Exception e){
+							e.printStackTrace();
+						}
+					}else break;
+				}
 
-		lv_payment.setAdapter(new PaymentListView(getActivity(), payment));
+			}
+		}).start();
+
+
+
 
 		/*****************************************/
 
