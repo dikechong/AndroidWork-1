@@ -49,7 +49,7 @@ public class FragmentMenuContent extends Fragment {
 	//小类资源集合
 	ArrayList<String> xlSource;
 	//设置菜品的listview
-	private ListView lv_setting; 
+	private ListView lv_setting;
 	//要加载的视图
 	private View v;
 	//菜品信息的集合
@@ -133,7 +133,7 @@ public class FragmentMenuContent extends Fragment {
 	 *
 	 */
 	private class SpinnerAdapter extends ArrayAdapter<String>{
-		
+
 		private Context context;
 		private List<String> items;
 		public SpinnerAdapter(Context context, int resource, List<String> objects) {
@@ -147,8 +147,8 @@ public class FragmentMenuContent extends Fragment {
 			// TODO Auto-generated method stub
 			if(convertView==null){
 				convertView=LayoutInflater.from(context).
-				inflate(android.R.layout.simple_dropdown_item_1line, parent, false);
-				
+						inflate(android.R.layout.simple_dropdown_item_1line, parent, false);
+
 			}
 			TextView tv=(TextView) convertView.findViewById(android.R.id.text1);
 			tv.setText(items.get(position));
@@ -161,14 +161,46 @@ public class FragmentMenuContent extends Fragment {
 		public View getView(int position, View convertView, ViewGroup parent) {
 			if(convertView==null){
 				convertView=LayoutInflater.from(context).
-				inflate(android.R.layout.simple_dropdown_item_1line, parent, false);
-				
+						inflate(android.R.layout.simple_dropdown_item_1line, parent, false);
+
 			}
 			TextView tv=(TextView) convertView.findViewById(android.R.id.text1);
 			tv.setText(items.get(position));
 			tv.setGravity(Gravity.CENTER);
 			tv.setTextColor(Color.BLACK);
 			tv.setTextSize(16);
+			if (!items.get(position).equals("全部")){
+				dishList.clear();
+				try{
+					Cursor cursor = dbhelper.query(String.format(("select  Menus.Id, Menus.code,  Menus.name,menus.unit,MenuPrices.price, menus.Usable\n" +
+							"\tfrom menus, MenuPrices,MenuClasses,menuClassMenus\n" +
+							"\twhere menus.id = MenuPrices.id \n" +
+							"\t\tand menuClassMenus.Menu_id = menus.id\n" +
+							"\t\tand menuClassMenus.MenuClass_Id = MenuClasses.id\n" +
+							"\t\tand MenuClasses.Name = '%s'"),items.get(position) ));
+					while (cursor.moveToNext()){
+						dishList.add(new Dish(cursor.getString(0), cursor.getString(2) == "" ? "无" :cursor.getString(2) ,
+								cursor.getString(1), cursor.getString(3), cursor.getDouble(4),cursor.getDouble(4), cursor.getString(5) == null ? "true" : "false"));
+					}
+					cursor.close();
+					dishListAdapter=new DishSettingAdapter();lv_setting.setAdapter(dishListAdapter);
+				}catch (Exception e){
+					Log.d("WTF", e.toString());
+				}
+			}else{
+				dishList.clear();
+				try{
+					Cursor cursor = dbhelper.query("select  Menus.Id, Menus.code,  Menus.name,menus.unit,MenuPrices.price, menus.Usable\n" +
+							"\tfrom menus, MenuPrices where menus.id = MenuPrices.id");
+					while (cursor.moveToNext()){
+						dishList.add(new Dish(cursor.getString(0), cursor.getString(2) == "" ? "无" :cursor.getString(2) ,
+								cursor.getString(1), cursor.getString(3), cursor.getDouble(4),cursor.getDouble(4), cursor.getString(5) == null ? "true" : "false"));
+					}
+					cursor.close();
+				}catch (Exception e){
+					Log.d("WTF", e.toString());
+				}
+			}
 			return convertView;
 		}
 	}
@@ -222,7 +254,7 @@ public class FragmentMenuContent extends Fragment {
 				holder=(ViewHolder) convertView.getTag();
 			}
 			//设置数据
-			holder.sequenceNum.setText(""+position+1);
+			holder.sequenceNum.setText(String.valueOf(position+1));
 			holder.dishId.setText(dishList.get(position).getDishId()+"");
 			holder.dishName.setText(dishList.get(position).getDishName()+" "+dishList.get(position).getAbbrevation());
 			holder.imageUrl.setText(dishList.get(position).getImageUrl() == "" ? "无" : dishList.get(position).getImageUrl());
