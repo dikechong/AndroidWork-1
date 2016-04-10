@@ -13,6 +13,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.qiaoxi.bean.Global;
+import com.qiaoxi.fragment.CheckFragment;
 import com.qiaoxi.fragment.Fragment1;
 import com.qiaoxi.fragment.Fragment2;
 import com.qiaoxi.fragment.FragmentMenu;
@@ -372,10 +373,12 @@ public class MainActivity extends Activity {
 		button1 = (RadioButton) findViewById(R.id.radio_1);
 		button2 = (RadioButton) findViewById(R.id.radio_2);
 		button9 = (RadioButton) findViewById(R.id.radio_9);
+        button7 = (RadioButton) findViewById(R.id.radio_7);
 		titlegroup = (RadioGroup) findViewById(R.id.title_radiogroup);
 		button1.setOnCheckedChangeListener(listener);
 		button2.setOnCheckedChangeListener(listener);
 		button9.setOnCheckedChangeListener(listener);
+        button7.setOnCheckedChangeListener(listener);
 	}
 
 	@Override
@@ -426,7 +429,16 @@ public class MainActivity extends Activity {
 				if (isChecked) {
 					ExitApplication.getInstance().exit();
 				}
-			}
+			} else if (buttonView.getId() == R.id.radio_7){
+                if (isChecked){
+                    getFragmentManager().beginTransaction()
+                            .replace(R.id.fragment1,new FragmentMenu())
+                            .commit();
+                    getFragmentManager().beginTransaction()
+                            .replace(R.id.fragment2,new CheckFragment())
+                            .commit();
+                }
+            }
 
 		}
 	}	
