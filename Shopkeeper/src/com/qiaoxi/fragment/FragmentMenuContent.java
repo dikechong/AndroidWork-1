@@ -5,10 +5,14 @@ import java.util.List;
 
 import com.qiaoxi.bean.Dish;
 import com.qiaoxi.shopkeeper.R;
+import com.qiaoxi.sqlite.DBManagerContract;
+import com.qiaoxi.sqlite.DatabaseHelper;
 
 import android.R.color;
 import android.app.Fragment;
 import android.content.Context;
+import android.content.pm.ProviderInfo;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.widget.ListViewAutoScrollHelper;
@@ -19,12 +23,14 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class FragmentMenuContent extends Fragment {
 	//大类的按钮
@@ -49,6 +55,8 @@ public class FragmentMenuContent extends Fragment {
 	private DishSettingAdapter dishListAdapter;
 	//获取父容器
 	private LinearLayout ll_menu_content;
+
+	private DatabaseHelper dbhelper;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -65,6 +73,7 @@ public class FragmentMenuContent extends Fragment {
 	 * 初始化数据
 	 */
 	private void init(View v){
+		dbhelper = new DatabaseHelper(getActivity(), 1);
 		//获取大类的按钮
 		sp_dl=(Spinner) v.findViewById(R.id.sp_dl);
 		//获取小类按按钮
@@ -78,17 +87,26 @@ public class FragmentMenuContent extends Fragment {
 		//初始化集合
 		dlSource=new ArrayList<String>();
 		xlSource=new ArrayList<String>();
+
+		dlSource.add("全部");
 		//添加数据
-		dlSource.add("冷菜");
-		dlSource.add("热菜");
-		dlSource.add("汤");
-		dlSource.add("海鲜");
-		xlSource.add("百味家常菜");
-		xlSource.add("精致陕西菜");
-		xlSource.add("田园时蔬");
-		xlSource.add("窑洞推荐");
-		dishList.add(new Dish(1001, "东坡肉", "dpr", "/images/01.jpg	", "份", 80, 60, 0, 0.8, "A区"));
-		dishList.add(new Dish(1002, "糖醋排骨", "tcpg", "/images/01.jpg	", "份", 80, 60, 0, 0.8, "B区"));
+		Cursor cursor = dbhelper.query(DBManagerContract.MenuClassesTable.TABLE_NAME,
+				new String[]{DBManagerContract.MenuClassesTable.COLUMN_NAME_Name},null,null,null,null,null,null);
+		while (cursor.moveToNext()){
+			dlSource.add(cursor.getString(0));
+		}
+		cursor.close();
+
+		xlSource.add("全部");
+
+		cursor = dbhelper.query("select  Menus.Id, Menus.code,  Menus.name, menus.unit,MenuPrices.price\n" +
+				"\tfrom menus, MenuPrices where menus.id = MenuPrices.id");
+		while (cursor.moveToNext()){
+			dishList.add(new Dish(cursor.getString(0), cursor.getString(2) == "" ? "无" :cursor.getString(2) ,
+					cursor.getString(1), cursor.getString(3), cursor.getDouble(4),cursor.getDouble(4)));
+		}
+		cursor.close();
+
 		//初始化适配器
 		dlAdapter=new SpinnerAdapter(getActivity(), android.R.layout.simple_dropdown_item_1line, dlSource);
 		xlAdapter=new SpinnerAdapter(getActivity(), android.R.layout.simple_dropdown_item_1line, xlSource);
@@ -189,7 +207,7 @@ public class FragmentMenuContent extends Fragment {
 				holder.printDepartment=(TextView) convertView.findViewById(R.id.tv_cdbm);
 				holder.edit=(ImageView) convertView.findViewById(R.id.iv_bj);
 				holder.delete=(ImageView) convertView.findViewById(R.id.iv_sc);
-				holder.useable=(ImageView) convertView.findViewById(R.id.iv_ky);
+				holder.useable=(Button) convertView.findViewById(R.id.iv_ky);
 				//设置标签
 				convertView.setTag(holder);
 			}
@@ -197,17 +215,24 @@ public class FragmentMenuContent extends Fragment {
 				holder=(ViewHolder) convertView.getTag();
 			}
 			//设置数据
-			holder.sequenceNum.setText(""+0);
+			holder.sequenceNum.setText(""+position+1);
 			holder.dishId.setText(dishList.get(position).getDishId()+"");
 			holder.dishName.setText(dishList.get(position).getDishName()+" "+dishList.get(position).getAbbrevation());
-			holder.imageUrl.setText(dishList.get(position).getImageUrl());
+			holder.imageUrl.setText(dishList.get(position).getImageUrl() == "" ? "无" : dishList.get(position).getImageUrl());
 			holder.unit.setText(dishList.get(position).getPrice()+"/"+dishList.get(position).getClientPrice()+"("+dishList.get(position).getUnit()+")");
 			holder.serverFee.setText(dishList.get(position).getServerPrice()+"");
 			holder.discount.setText(dishList.get(position).getDiscount()+"");
 			holder.printDepartment.setText(dishList.get(position).getPrintDepartment());
 			holder.edit.setImageResource(R.drawable.note_on);
 			holder.delete.setImageResource(R.drawable.del_on2);
-			holder.useable.setImageResource(R.drawable.choice_on);
+			holder.useable.setBackgroundResource(R.drawable.choice_on);
+			holder.useable.setTag(dishList.get(position).getDishId());
+			holder.useable.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View view) {
+					Toast.makeText(getActivity(), view.getTag().toString(),Toast.LENGTH_SHORT).show();
+				}
+			});
 			return convertView;
 		}
 		private class ViewHolder{
@@ -221,7 +246,7 @@ public class FragmentMenuContent extends Fragment {
 			private TextView printDepartment;
 			private ImageView edit;
 			private ImageView delete;
-			private ImageView  useable;
+			private Button  useable;
 		}
 	}
 }

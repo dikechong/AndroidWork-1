@@ -14,6 +14,7 @@ import org.json.JSONObject;
 
 import com.qiaoxi.bean.Global;
 import com.qiaoxi.fragment.CheckFragment;
+import com.qiaoxi.fragment.ChooseCheckFragment;
 import com.qiaoxi.fragment.Fragment1;
 import com.qiaoxi.fragment.Fragment2;
 import com.qiaoxi.fragment.FragmentMenu;
@@ -432,7 +433,7 @@ public class MainActivity extends Activity {
 			} else if (buttonView.getId() == R.id.radio_7){
                 if (isChecked){
                     getFragmentManager().beginTransaction()
-                            .replace(R.id.fragment1,new FragmentMenu())
+                            .replace(R.id.fragment1,new ChooseCheckFragment())
                             .commit();
                     getFragmentManager().beginTransaction()
                             .replace(R.id.fragment2,new CheckFragment())

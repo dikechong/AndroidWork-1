@@ -74,7 +74,7 @@
                 android:text="菜名、拼音缩写"
                 android:textColor="#33a9e7" />
 
-            <TextView
+           <TextView
                 android:layout_width="68dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -90,7 +90,7 @@
                 android:text="单价/会员价(份)"
                 android:textColor="#33a9e7" />
 
-            <TextView
+           <TextView
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -130,12 +130,12 @@
                 android:text="删除"
                 android:textColor="#33a9e7" />
 
-            <TextView
+            <TextView android:id="@+id/menu_content_isuable"
                 android:layout_width="32dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="可用"
+                android:text="沽清"
                 android:textColor="#33a9e7" />
         </LinearLayout>
     </LinearLayout>

@@ -82,7 +82,7 @@
         android:layout_height="32dp"
         android:layout_weight="1" />
 
-    <ImageView
+    <Button
         android:id="@+id/iv_ky"
         android:layout_width="32dp"
         android:layout_height="32dp"

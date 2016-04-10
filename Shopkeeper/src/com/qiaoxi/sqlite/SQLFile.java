@@ -44,7 +44,7 @@ public final class SQLFile {
     //TODO
         public static final String menus="create table Menus\n" +
             "(\n" +
-            "\tId\tnvarchar(6)\tnot null,\n" +
+             "\tId\tnvarchar(6)\tnot null,\n" +
             "Code\tnvarchar(10) not null,\n" +
             "Name\tnvarchar(30) not null,\n" +
             "NameAbbr\tnvarchar(15) ,\n" +
@@ -71,7 +71,18 @@ public final class SQLFile {
             "\tMenuClass_Id nvarchar(6) not null,\n" +
             "\tprimary key(Menu_id,MenuClass_Id)\n" +
             ")";
-
+        //��Ʒ���
+        public static final String menuclasses="create table MenuClasses\t\n" +
+                "(\n" +
+                "\tId\tnvarchar(6)\tprimary key,\n" +
+                "Name\tnvarchar(20)\t,\t\n" +
+                "Description\tnvarchar(50)\t,\t\n" +
+                "IsShow\tbit\t,\n" +
+                "Usable\tbit\t,\t\n" +
+                "_Level\tinteger\t,\n" +
+                "IsLeaf\tbit\t,\n" +
+                "ParentMenuClassId\tnvarchar(6)\n" +
+                ")";
             //TODO
         public static final String menuPrices="create table MenuPrices\n" +
                 "(\n" +
@@ -179,18 +190,7 @@ public final class SQLFile {
                 "CompleteUrl\tnvarchar(128),\t\n" +
                 "NotifyUrl\tnvarchar(128)\n" +
                 ")";
-        //��Ʒ���
-        public static final String menuclasses="create table MenuClasses\t\n" +
-                "(\n" +
-                "\tId\tnvarchar(6)\tprimary key,\n" +
-                "Name\tnvarchar(20)\t,\t\n" +
-                "Description\tnvarchar(50)\t,\t\n" +
-                "IsShow\tbit\t,\n" +
-                "Usable\tbit\t,\t\n" +
-                "_Level\tinteger\t,\n" +
-                "IsLeaf\tbit\t,\n" +
-                "ParentMenuClassId\tnvarchar(6)\n" +
-                ")";
+
 
         public static final String remarks= "create table Remarks\n" +
                 "(\n" +

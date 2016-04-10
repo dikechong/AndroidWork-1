@@ -779,7 +779,7 @@ import android.widget.Toast;
 		public void onReceive(Context context, Intent intent){
 
 			String t_payment = intent.getStringExtra("payment");
-			Double t_money = intent.getDoubleExtra("money",100);
+			Double t_money = intent.getDoubleExtra("money",0);
 			Global.al -= payment_map.get(t_payment);
 			Global.al += t_money;
 			payment_map.put(t_payment, t_money);

@@ -17,6 +17,10 @@
         <ListView android:id="@+id/check_listview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"></ListView>
+        <Button android:id="@+id/shift"
+            android:text="确认"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
 </FrameLayout>

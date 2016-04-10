@@ -12,6 +12,7 @@
         android:id="@+id/tv_adddish"
         android:textSize="40dp"
         android:gravity="center"
-        android:textColor="@android:color/black"/>
+        android:textColor="@android:color/black"
+        android:visibility="invisible"/>
 	
 </LinearLayout>

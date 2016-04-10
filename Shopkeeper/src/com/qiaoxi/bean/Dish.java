@@ -1,7 +1,7 @@
 package com.qiaoxi.bean;
 public class Dish {
 
-	private int dishId;
+	private String dishId;
 
 	private String dishName;
 
@@ -16,8 +16,8 @@ public class Dish {
 	private double clientPrice;
 
 	private double serverPrice;
-	public Dish(int dishId, String dishName, String abbrevation, String imageUrl, String unit, double price,
-				double clientPrice, double serverPrice, double discount, String printDepartment) {
+	public Dish(String dishId, String dishName, String abbrevation,
+				 String unit, double price,double clientPrice) {
 		super();
 		this.dishId = dishId;
 		this.dishName = dishName;
@@ -40,10 +40,10 @@ public class Dish {
 	private double discount;
 
 	private String printDepartment;
-	public int getDishId() {
+	public String getDishId() {
 		return dishId;
 	}
-	public void setDishId(int dishId) {
+	public void setDishId(String dishId) {
 		this.dishId = dishId;
 	}
 	public String getDishName() {
