@@ -9,10 +9,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-        <TextView
+        <TextView android:textAlignment="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/hello_blank_fragment" />
+            android:text="交接班" />
 
         <ListView android:id="@+id/check_listview"
             android:layout_width="match_parent"

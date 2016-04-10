@@ -36,57 +36,17 @@
     <favorites_list name="Shopkeeper" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.5819054">
+    <splitter split-orientation="horizontal" split-proportion="0.48180816">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="Fragment2_order.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/com/qiaoxi/fragment/Fragment2_order.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0">
-                  <caret line="168" column="0" selection-start-line="168" selection-start-column="0" selection-end-line="168" selection-end-column="0" />
-                  <folding>
-                    <element signature="e#6223#6635#0" expanded="true" />
-                    <element signature="e#6634#6635#0" expanded="true" />
-                    <element signature="class#ToastMessageTask#0;class#Fragment2_order#0" expanded="false" />
-                    <element signature="class#ClickListener#0;class#Fragment2_order#0" expanded="false" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="fragment_check.xml" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/res/layout/fragment_check.xml">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.47114253">
-                  <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
-                  <folding>
-                    <element signature="e#595#625#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-              <provider editor-type-id="android-designer">
-                <state />
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="CheckFragment.java" pinned="false" current-in-tab="false">
+          <file leaf-file-name="CheckFragment.java" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/com/qiaoxi/fragment/CheckFragment.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0">
-                  <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+                <state vertical-scroll-proportion="0.5814978">
+                  <caret line="42" column="50" selection-start-line="42" selection-start-column="50" selection-end-line="42" selection-end-column="50" />
                   <folding>
                     <element signature="imports" expanded="true" />
                   </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/com/qiaoxi/shopkeeper/MainActivity.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0">
-                  <caret line="437" column="71" selection-start-line="437" selection-start-column="71" selection-end-line="437" selection-end-column="71" />
-                  <folding />
                 </state>
               </provider>
             </entry>
@@ -120,11 +80,34 @@
       </split-first>
       <split-second>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="PaymentListView.java" pinned="false" current-in-tab="true">
+          <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/com/qiaoxi/shopkeeper/MainActivity.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.0">
+                  <caret line="437" column="41" selection-start-line="437" selection-start-column="41" selection-end-line="437" selection-end-column="41" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="Fragment2_order.java" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/src/com/qiaoxi/fragment/Fragment2_order.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.5726872">
+                  <caret line="255" column="22" selection-start-line="255" selection-start-column="22" selection-end-line="255" selection-end-column="22" />
+                  <folding>
+                    <element signature="class#ToastMessageTask#0;class#Fragment2_order#0" expanded="false" />
+                    <element signature="class#ClickListener#0;class#Fragment2_order#0" expanded="false" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="PaymentListView.java" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/com/qiaoxi/adapter/PaymentListView.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0969163">
-                  <caret line="61" column="5" selection-start-line="61" selection-start-column="5" selection-end-line="61" selection-end-column="5" />
+                <state vertical-scroll-proportion="0.0">
+                  <caret line="48" column="38" selection-start-line="48" selection-start-column="38" selection-end-line="48" selection-end-column="38" />
                   <folding />
                 </state>
               </provider>
@@ -938,9 +921,9 @@
         <option value="$PROJECT_DIR$/res/layout/payment_listview_item.xml" />
         <option value="$PROJECT_DIR$/src/com/qiaoxi/fragment/Fragment2_order.java" />
         <option value="$PROJECT_DIR$/res/layout/fragment2_order.xml" />
-        <option value="$PROJECT_DIR$/src/com/qiaoxi/fragment/CheckFragment.java" />
         <option value="$PROJECT_DIR$/src/com/qiaoxi/shopkeeper/MainActivity.java" />
         <option value="$PROJECT_DIR$/res/layout/fragment_check.xml" />
+        <option value="$PROJECT_DIR$/src/com/qiaoxi/fragment/CheckFragment.java" />
       </list>
     </option>
   </component>
@@ -1445,8 +1428,6 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="172" column="21" selection-start-line="172" selection-start-column="21" selection-end-line="172" selection-end-column="21" />
           <folding>
-            <element signature="e#6223#6635#0" expanded="true" />
-            <element signature="e#6634#6635#0" expanded="true" />
             <element signature="class#ToastMessageTask#0;class#Fragment2_order#0" expanded="false" />
             <element signature="class#ClickListener#0;class#Fragment2_order#0" expanded="false" />
           </folding>
@@ -1656,19 +1637,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/qiaoxi/fragment/Fragment2_order.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="168" column="0" selection-start-line="168" selection-start-column="0" selection-end-line="168" selection-end-column="0" />
-          <folding>
-            <element signature="e#6223#6635#0" expanded="true" />
-            <element signature="e#6634#6635#0" expanded="true" />
-            <element signature="class#ToastMessageTask#0;class#Fragment2_order#0" expanded="false" />
-            <element signature="class#ClickListener#0;class#Fragment2_order#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/res/layout/fragment2_order.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="3.9623086">
@@ -1682,41 +1650,50 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/qiaoxi/adapter/PaymentListView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0969163">
-          <caret line="61" column="5" selection-start-line="61" selection-start-column="5" selection-end-line="61" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/qiaoxi/shopkeeper/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="437" column="71" selection-start-line="437" selection-start-column="71" selection-end-line="437" selection-end-column="71" />
+          <caret line="48" column="38" selection-start-line="48" selection-start-column="38" selection-end-line="48" selection-end-column="38" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/qiaoxi/fragment/CheckFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/res/layout/fragment_check.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.47114253">
-          <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
-          <folding>
-            <element signature="e#595#625#0" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="-4.745763">
+          <caret line="14" column="29" selection-start-line="14" selection-start-column="29" selection-end-line="14" selection-end-column="29" />
+          <folding />
         </state>
       </provider>
       <provider editor-type-id="android-designer">
         <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/qiaoxi/shopkeeper/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="437" column="41" selection-start-line="437" selection-start-column="41" selection-end-line="437" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/qiaoxi/fragment/Fragment2_order.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5726872">
+          <caret line="255" column="22" selection-start-line="255" selection-start-column="22" selection-end-line="255" selection-end-column="22" />
+          <folding>
+            <element signature="class#ToastMessageTask#0;class#Fragment2_order#0" expanded="false" />
+            <element signature="class#ClickListener#0;class#Fragment2_order#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/qiaoxi/fragment/CheckFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5814978">
+          <caret line="42" column="50" selection-start-line="42" selection-start-column="50" selection-end-line="42" selection-end-column="50" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
       </provider>
     </entry>
   </component>
