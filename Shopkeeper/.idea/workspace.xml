@@ -36,7 +36,7 @@
     <favorites_list name="Shopkeeper" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.40793827">
+    <splitter split-orientation="horizontal" split-proportion="0.37210584">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file leaf-file-name="CheckFragment.java" pinned="false" current-in-tab="false">
@@ -53,26 +53,30 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="SQLFile.java" pinned="false" current-in-tab="false">
+          <file leaf-file-name="SQLFile.java" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/com/qiaoxi/sqlite/SQLFile.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0">
-                  <caret line="86" column="70" selection-start-line="86" selection-start-column="60" selection-end-line="86" selection-end-column="70" />
+                <state vertical-scroll-proportion="1.3656387">
+                  <caret line="62" column="19" selection-start-line="62" selection-start-column="13" selection-end-line="62" selection-end-column="19" />
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="Dish.java" pinned="false" current-in-tab="true">
+          <file leaf-file-name="Dish.java" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/com/qiaoxi/bean/Dish.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.29545453">
-                  <caret line="19" column="61" selection-start-line="19" selection-start-column="61" selection-end-line="19" selection-end-column="61" />
+                <state vertical-scroll-proportion="-31.428572">
+                  <caret line="51" column="33" selection-start-line="51" selection-start-column="33" selection-end-line="51" selection-end-column="33" />
                   <folding>
-                    <element signature="e#850#851#0" expanded="true" />
-                    <element signature="e#870#871#0" expanded="true" />
-                    <element signature="e#910#911#0" expanded="true" />
-                    <element signature="e#937#938#0" expanded="true" />
+                    <element signature="e#915#916#0" expanded="true" />
+                    <element signature="e#936#937#0" expanded="true" />
+                    <element signature="e#979#980#0" expanded="true" />
+                    <element signature="e#1008#1009#0" expanded="true" />
+                    <element signature="e#1038#1039#0" expanded="true" />
+                    <element signature="e#1058#1059#0" expanded="true" />
+                    <element signature="e#1098#1099#0" expanded="true" />
+                    <element signature="e#1125#1126#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -129,11 +133,11 @@
           <file leaf-file-name="FragmentMenuContent.java" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/com/qiaoxi/fragment/FragmentMenuContent.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.09090909">
-                  <caret line="217" column="52" selection-start-line="217" selection-start-column="52" selection-end-line="217" selection-end-column="52" />
+                <state vertical-scroll-proportion="0.47840908">
+                  <caret line="153" column="44" selection-start-line="153" selection-start-column="44" selection-end-line="153" selection-end-column="44" />
                   <folding>
-                    <element signature="e#7702#7880#0" expanded="true" />
-                    <element signature="e#7879#7880#0" expanded="true" />
+                    <element signature="e#8062#8611#0" expanded="true" />
+                    <element signature="e#8610#8611#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -976,8 +980,8 @@
         <option value="$PROJECT_DIR$/src/com/qiaoxi/fragment/Fragment2_order.java" />
         <option value="$PROJECT_DIR$/src/com/qiaoxi/fragment/CheckFragment.java" />
         <option value="$PROJECT_DIR$/src/com/qiaoxi/sqlite/SQLFile.java" />
-        <option value="$PROJECT_DIR$/src/com/qiaoxi/bean/Dish.java" />
         <option value="$PROJECT_DIR$/res/layout/fragment_menu_content.xml" />
+        <option value="$PROJECT_DIR$/src/com/qiaoxi/bean/Dish.java" />
         <option value="$PROJECT_DIR$/src/com/qiaoxi/fragment/FragmentMenuContent.java" />
       </list>
     </option>
@@ -1885,27 +1889,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/qiaoxi/sqlite/SQLFile.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="86" column="70" selection-start-line="86" selection-start-column="60" selection-end-line="86" selection-end-column="70" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/qiaoxi/bean/Dish.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.29545453">
-          <caret line="19" column="61" selection-start-line="19" selection-start-column="61" selection-end-line="19" selection-end-column="61" />
-          <folding>
-            <element signature="e#850#851#0" expanded="true" />
-            <element signature="e#870#871#0" expanded="true" />
-            <element signature="e#910#911#0" expanded="true" />
-            <element signature="e#937#938#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/res/layout/fragment_menu_content.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-2.3728814">
@@ -1917,13 +1900,38 @@
         <state />
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/qiaoxi/bean/Dish.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-31.428572">
+          <caret line="51" column="33" selection-start-line="51" selection-start-column="33" selection-end-line="51" selection-end-column="33" />
+          <folding>
+            <element signature="e#915#916#0" expanded="true" />
+            <element signature="e#936#937#0" expanded="true" />
+            <element signature="e#979#980#0" expanded="true" />
+            <element signature="e#1008#1009#0" expanded="true" />
+            <element signature="e#1038#1039#0" expanded="true" />
+            <element signature="e#1058#1059#0" expanded="true" />
+            <element signature="e#1098#1099#0" expanded="true" />
+            <element signature="e#1125#1126#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/qiaoxi/sqlite/SQLFile.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.3656387">
+          <caret line="62" column="19" selection-start-line="62" selection-start-column="13" selection-end-line="62" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/qiaoxi/fragment/FragmentMenuContent.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.09090909">
-          <caret line="217" column="52" selection-start-line="217" selection-start-column="52" selection-end-line="217" selection-end-column="52" />
+        <state vertical-scroll-proportion="0.47840908">
+          <caret line="153" column="44" selection-start-line="153" selection-start-column="44" selection-end-line="153" selection-end-column="44" />
           <folding>
-            <element signature="e#7702#7880#0" expanded="true" />
-            <element signature="e#7879#7880#0" expanded="true" />
+            <element signature="e#8062#8611#0" expanded="true" />
+            <element signature="e#8610#8611#0" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -10,12 +10,14 @@ import com.qiaoxi.sqlite.DatabaseHelper;
 
 import android.R.color;
 import android.app.Fragment;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.pm.ProviderInfo;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.widget.ListViewAutoScrollHelper;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +26,7 @@ import android.widget.AbsListView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
@@ -98,14 +101,18 @@ public class FragmentMenuContent extends Fragment {
 		cursor.close();
 
 		xlSource.add("全部");
-
-		cursor = dbhelper.query("select  Menus.Id, Menus.code,  Menus.name, menus.unit,MenuPrices.price\n" +
-				"\tfrom menus, MenuPrices where menus.id = MenuPrices.id");
-		while (cursor.moveToNext()){
-			dishList.add(new Dish(cursor.getString(0), cursor.getString(2) == "" ? "无" :cursor.getString(2) ,
-					cursor.getString(1), cursor.getString(3), cursor.getDouble(4),cursor.getDouble(4)));
+		try{
+			cursor = dbhelper.query("select  Menus.Id, Menus.code,  Menus.name,menus.unit,MenuPrices.price, menus.Usable\n" +
+					"\tfrom menus, MenuPrices where menus.id = MenuPrices.id");
+			while (cursor.moveToNext()){
+				dishList.add(new Dish(cursor.getString(0), cursor.getString(2) == "" ? "无" :cursor.getString(2) ,
+						cursor.getString(1), cursor.getString(3), cursor.getDouble(4),cursor.getDouble(4), cursor.getString(5) == null ? "true" : "false"));
+			}
+			cursor.close();
+		}catch (Exception e){
+			Log.d("WTF", e.toString());
 		}
-		cursor.close();
+
 
 		//初始化适配器
 		dlAdapter=new SpinnerAdapter(getActivity(), android.R.layout.simple_dropdown_item_1line, dlSource);
@@ -225,12 +232,24 @@ public class FragmentMenuContent extends Fragment {
 			holder.printDepartment.setText(dishList.get(position).getPrintDepartment());
 			holder.edit.setImageResource(R.drawable.note_on);
 			holder.delete.setImageResource(R.drawable.del_on2);
-			holder.useable.setBackgroundResource(R.drawable.choice_on);
+
+			if (dishList.get(position).isuable() == "true"){
+				holder.useable.setBackgroundResource(R.drawable.choice_on);
+			}else{
+				holder.useable.setBackgroundResource(R.drawable.choice);
+			}
+
 			holder.useable.setTag(dishList.get(position).getDishId());
 			holder.useable.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View view) {
-					Toast.makeText(getActivity(), view.getTag().toString(),Toast.LENGTH_SHORT).show();
+					view.setBackgroundResource(R.drawable.choice);
+					ContentValues contentValues = new ContentValues();
+					contentValues.put(DBManagerContract.MenusTable.COLUMN_NAME_Id, view.getTag().toString());
+					contentValues.put(DBManagerContract.MenusTable.COLUMN_NAME_Usable, "false");
+					dbhelper.update(DBManagerContract.MenusTable.TABLE_NAME,contentValues,DBManagerContract.MenusTable.COLUMN_NAME_Id+"=?"
+							,new String[]{view.getTag().toString()});
+
 				}
 			});
 			return convertView;

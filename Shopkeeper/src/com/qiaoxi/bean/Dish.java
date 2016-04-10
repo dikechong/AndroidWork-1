@@ -15,9 +15,11 @@ public class Dish {
 
 	private double clientPrice;
 
+	private String isuable;
+
 	private double serverPrice;
 	public Dish(String dishId, String dishName, String abbrevation,
-				 String unit, double price,double clientPrice) {
+				 String unit, double price,double clientPrice,String usable) {
 		super();
 		this.dishId = dishId;
 		this.dishName = dishName;
@@ -29,6 +31,7 @@ public class Dish {
 		this.serverPrice = serverPrice;
 		this.discount = discount;
 		this.printDepartment = printDepartment;
+		this.isuable = usable;
 	}
 
 	public Dish() {
@@ -39,7 +42,17 @@ public class Dish {
 
 	private double discount;
 
+
 	private String printDepartment;
+
+	public String isuable() {
+		return isuable;
+	}
+
+	public void setIsuable(String isuable) {
+		this.isuable = isuable;
+	}
+
 	public String getDishId() {
 		return dishId;
 	}
