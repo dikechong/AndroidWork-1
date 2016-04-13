@@ -66,8 +66,11 @@ public class NoteGridAdapter extends BaseAdapter{
 		else{
 			holder=(viewHolder) convertView.getTag();
 		}
+		//设置params
 		holder.tv_Note.setLayoutParams(params);
+		//设置背景颜色
 		holder.tv_Note.setBackgroundColor(context.getResources().getColor(R.color.Myblue));
+		//设置文本信息
 		holder.tv_Note.setText(listNote.get(position));
 		holder.tv_Note.setTextColor(Color.WHITE);
 		return convertView;

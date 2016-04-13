@@ -6,7 +6,7 @@ package com.qiaoxi.sqlite;
  */
 
 /*
-* �����Ǵ������ݿ��Ľű�*/
+* 此类是创建数据库表的脚本*/
 public final class SQLFile {
     //TODO
         public static final String hotels="create table Hotels\n" +
@@ -33,7 +33,7 @@ public final class SQLFile {
             "Id\tnvarchar(4) not null,\n" +
             "Name\tnvarchar(20) not null,\t\t\n" +
             "AreaId\tnvarchar(2)\t ,\n" +
-            "_Order\tINTEGER,\t\n" + //ע��˴�_Order
+            "_Order\tINTEGER,\t\n" + //注意此处_Order
             "Description\tnvarchar(128),\t\t\t\n" +
             "QrCode\tnvarchar(5),\t\t\t\n" +
             "MinPrice\tdecimal(11, 2),\t\t\n" +
@@ -44,7 +44,7 @@ public final class SQLFile {
     //TODO
         public static final String menus="create table Menus\n" +
             "(\n" +
-             "\tId\tnvarchar(6)\tnot null,\n" +
+            "\tId\tnvarchar(6)\tnot null,\n" +
             "Code\tnvarchar(10) not null,\n" +
             "Name\tnvarchar(30) not null,\n" +
             "NameAbbr\tnvarchar(15) ,\n" +
@@ -71,18 +71,7 @@ public final class SQLFile {
             "\tMenuClass_Id nvarchar(6) not null,\n" +
             "\tprimary key(Menu_id,MenuClass_Id)\n" +
             ")";
-        //��Ʒ���
-        public static final String menuclasses="create table MenuClasses\t\n" +
-                "(\n" +
-                "\tId\tnvarchar(6)\tprimary key,\n" +
-                "Name\tnvarchar(20)\t,\t\n" +
-                "Description\tnvarchar(50)\t,\t\n" +
-                "IsShow\tbit\t,\n" +
-                "Usable\tbit\t,\t\n" +
-                "_Level\tinteger\t,\n" +
-                "IsLeaf\tbit\t,\n" +
-                "ParentMenuClassId\tnvarchar(6)\n" +
-                ")";
+
             //TODO
         public static final String menuPrices="create table MenuPrices\n" +
                 "(\n" +
@@ -147,14 +136,14 @@ public final class SQLFile {
                 "Price\tdecimal(11, 2)\n," +
                 "primary key(dineid, paykindid)" +
                 ")";
-        //������ע
+        //整单备注
         public static final String dineRemarks="create table DineRemarks\n" +
                 "(\n" +
                 "\tDineId\tnvarchar(14)\tnot null,\t\n" +
                 "Remark_Id\tinteger not null,\n" +
                 "primary key(DineId,Remark_Id)\n" +
                 ")";
-        //������Ĳ�Ʒ
+        //订单里的菜品
         public static final String dineMenus="create table DineMenus\n" +
                 "(\n" +
 //                "_id integer primary key autoincrement\n"+
@@ -167,12 +156,12 @@ public final class SQLFile {
                 "ReturnedWaiterId\tnvarchar(256),\n" +
                 "\tprimary key(DineId, MenuId)\n" +
                 ")";
-        //����ÿ���˵ı�ע
+        //订单每个菜的备注
         public static final String dineMenuRemarks="create table DineMenuRemarks\n" +
                 "(\n" +
                 "\tDineMenu_DineId\tnvarchar(14)\tnot null,\t\n" +
                 "DineMenu_MenuId\tnvarchar(6)\tnot null,\n" +
-                "DineMenu_Status\tinteger not null,\t\n" +
+                "DineMenu_Status\tinteger,\t\n" +
                 "Remark_Id\tinteger not null,\n" +
                 "primary key(DineMenu_DineId, DineMenu_MenuId)\n" +
                 ")";
@@ -190,7 +179,18 @@ public final class SQLFile {
                 "CompleteUrl\tnvarchar(128),\t\n" +
                 "NotifyUrl\tnvarchar(128)\n" +
                 ")";
-
+        //菜品类别
+        public static final String menuclasses="create table MenuClasses\t\n" +
+                "(\n" +
+                "\tId\tnvarchar(6)\tprimary key,\n" +
+                "Name\tnvarchar(20)\t,\t\n" +
+                "Description\tnvarchar(50)\t,\t\n" +
+                "IsShow\tbit\t,\n" +
+                "Usable\tbit\t,\t\n" +
+                "_Level\tinteger\t,\n" +
+                "IsLeaf\tbit\t,\n" +
+                "ParentMenuClassId\tnvarchar(6)\n" +
+                ")";
 
         public static final String remarks= "create table Remarks\n" +
                 "(\n" +
@@ -205,7 +205,7 @@ public final class SQLFile {
                 "(\n" +
                 "Id\tnvarchar(8)\tnot null,\n" +
                 "Name\tnvarchar(10)\tnot null,\t\t\n" +
-                "DineCount\tinteger,\n" +
+                "DineCount\tinteger,\n" +              
                 "DinePrice\tdecimal(11, 2),\t\n" +
                 "WorkTimeFrom\ttime(7)\t,\n" +
                 "WorkTimeTo\ttime(7)\t,\n" +
@@ -240,12 +240,12 @@ public final class SQLFile {
 
 
         public static final String CONTRACT_PATTERN =
-                "package %s;\n" + //����
+                "package %s;\n" + //包名
                 "import android.provider.BaseColumns;\n" +
                 "public final class DBManagerContract {\n" +
                 "\n" +
                 "    public DBManagerContract(){}\n" +
-                    "%s" +//������Ҫ����
+                    "%s" +//构造主要部分
                 "}";
 
         public static final String CONTRACT_PATTERN_1 =

@@ -6,17 +6,19 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
-
+import com.zj.btsdk.BluetoothService;
 import javax.crypto.spec.IvParameterSpec;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import com.qiaoxi.adapter.PaymentListView;
 import com.qiaoxi.bean.Global;
 import com.qiaoxi.fragment.CheckFragment;
 import com.qiaoxi.fragment.ChooseCheckFragment;
 import com.qiaoxi.fragment.Fragment1;
 import com.qiaoxi.fragment.Fragment2;
+import com.qiaoxi.fragment.Fragment2_order;
 import com.qiaoxi.fragment.FragmentMenu;
 import com.qiaoxi.fragment.FragmentMenuContent;
 
@@ -29,10 +31,18 @@ import com.qiaoxi.sqlite.DatabaseHelper;
 
 
 
+
+
+
+
+import com.zj.btsdk.BluetoothService;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.Fragment;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.ContentValues;
@@ -40,10 +50,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Message;
 import android.provider.BaseColumns;
 import android.util.Log;
 import android.view.Menu;
@@ -68,19 +81,44 @@ public class MainActivity extends Activity {
 	TEMP temp;
 	String TAG = getClass().getName();
 	DineInfoReceiver dineInfoReceiver;
-
 	String cookies;
+	private static final int REQUEST_ENABLE_BT = 5;
+	BluetoothService mService = null;
+	BluetoothDevice con_dev = null;
+	private static final int REQUEST_CONNECT_DEVICE = 6;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		db = openOrCreateDatabase("Infors", MODE_PRIVATE, null);
 		ExitApplication.getInstance().addActivity(this);
 		setContentView(R.layout.activity_menu);
-		db.execSQL("create table if not exists menutb(_id integer primary key autoincrement,DeskId text,menus text,menuid text)");
-		db.execSQL("drop table menutb");
-		db.execSQL("create table if not exists menutb(_id integer primary key autoincrement,DeskId text,menus text,menuid text)");
+		
+		mService = new BluetoothService(this, mHandler);
+		
+//		Fragment2_order.bluetooth_print.setOnClickListener(new OnClickListener() {
+//			
+//			@Override
+//			public void onClick(View arg0) {
+//				// TODO Auto-generated method stub
+//				if(Fragment2_order.linear_inventory.getChildCount() == 1){
+//					Toast.makeText(getApplicationContext(), "没有订单", Toast.LENGTH_LONG).show();
+//				}
+//				else{
+////					mService = new BluetoothService(this, mHandler);
+//					//蓝牙不可用退出程序
+//					if( mService.isBTopen() == false)
+//					{
+//			            Intent enableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+//			            startActivityForResult(enableIntent, REQUEST_ENABLE_BT);
+//					}
+//					else{
+//						Intent serverIntent = new Intent(MainActivity.this,DeviceListActivity.class);      //运行另外一个类的活动
+//		  				startActivityForResult(serverIntent,REQUEST_CONNECT_DEVICE);
+//					}
+//				}
+//			}
+//		});
 		
 		listener = new RadioListener();
 		Intent intent = getIntent();
@@ -93,19 +131,20 @@ public class MainActivity extends Activity {
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
 				getFragmentManager().beginTransaction()
-				.replace(R.id.fragment1,Global.fragment1 =  new Fragment1()).commit();
+				.replace(R.id.fragment1,Global.fragment1 =  new Fragment1(MainActivity.this)).commit();
 				getFragmentManager().beginTransaction()
-				.replace(R.id.fragment2,Global.fragment2 =  new Fragment2()).commit();
+				.replace(R.id.fragment2,Global.fragment2 =  new Fragment2(MainActivity.this)).commit();
 				titlegroup.clearCheck();
 				button1.setChecked(true);
 			}
 		});
+		
 	
 		getFragmentManager().beginTransaction()
-		.replace(R.id.fragment1,Global.fragment1 =  new Fragment1()).commit();
+		.replace(R.id.fragment1,Global.fragment1 =  new Fragment1(MainActivity.this)).commit();
 		getFragmentManager().beginTransaction()
-		.replace(R.id.fragment2,Global.fragment2 =  new Fragment2()).commit();
-		button1.setChecked(true);//]
+		.replace(R.id.fragment2,Global.fragment2 =  new Fragment2(MainActivity.this)).commit();
+		button1.setChecked(true);
 		
 		ContentValues values = new ContentValues();
 		
@@ -120,8 +159,19 @@ public class MainActivity extends Activity {
         IntentFilter temp_f = new IntentFilter();
         temp_f.addAction("cn.saltyx.shiyan.initdbservice.INITDBSERVICE");
         registerReceiver(temp, temp_f);
+        
+		
+//		/*注册广播*/
+//        dineInfoReceiver = new DineInfoReceiver();
+//        IntentFilter intentFilter = new IntentFilter();
+//        intentFilter.addAction("cn.saltyx.shiyan.socketservice.DINEINFO");
+//        registerReceiver(dineInfoReceiver, intentFilter);
+//        /***********************/
+//		// values.put(key, value)
+//		// databaseHelper.insert(table, values);
+	}
+	
 
-    }
     public void onStart(){
         super.onStart();
         /*启动service
@@ -130,15 +180,13 @@ public class MainActivity extends Activity {
         intent.setPackage("com.qiaoxi.shopkeeper");/*改成你的*/
         startService(intent);
         Log.i(TAG, "serviceOn");
-
-
         /*CHANGE tip*/
-        /*Intent intent1 = new Intent(InitDBService.ACTION);
+        Intent intent1 = new Intent(InitDBService.ACTION);
         intent1.putExtra("PackageName", "com.qiaoxi.shopkeeper");
         intent1.putExtra("Cookie", cookies);
         intent1.setPackage("com.qiaoxi.shopkeeper");
         startService(intent1);
-        Log.d(TAG,"INITDB ON");*/
+        Log.d(TAG,"INITDB ON");
         //bindService(intent, connection, Context.BIND_AUTO_CREATE);
         //Log.i(TAG, "bind");
     }
@@ -153,11 +201,11 @@ public class MainActivity extends Activity {
         intent1.setPackage("com.qiaoxi.shopkeeper");
         //unbindService(connection);
         stopService(intent1);
-        Log.i(TAG, "InitDB and Socket is killed");;
+
+        Log.i(TAG, "2killed");;
         unregisterReceiver(dineInfoReceiver);
         unregisterReceiver(temp);
     }
-
 
     class DineInfoReceiver extends BroadcastReceiver {
         @Override
@@ -290,8 +338,19 @@ public class MainActivity extends Activity {
 
             for(int i =0;i<DineMenus.length();i++){
             	JSONObject dinemenu = DineMenus.getJSONObject(i);
-            	JSONObject Menu = dinemenu.getJSONObject("Menu");
+            	JSONObject Menu = dinemenu.getJSONObject("Menu");     
+            	JSONArray remarks = dinemenu.getJSONArray("Remarks");
             	String MenuId1 = Menu.getString("Id");
+            	for(int j = 0;j<remarks.length();j++){
+            		JSONObject remarkob = remarks.getJSONObject(j);
+            		int remarkid = remarkob.getInt("Id");
+            		ContentValues revalue = new ContentValues();
+            		revalue.put("DineMenu_DineId", menuid);
+            		revalue.put("DineMenu_MenuId", MenuId1);
+            		revalue.put("Remark_Id", remarkid);
+            		dbHelper.insert(DBManagerContract.DineMenuRemarksTable.TABLE_NAME, values);
+            		revalue.clear();
+            	}
             	int Count = dinemenu.getInt("Count");
             	double Price1 = dinemenu.getDouble("Price");
             	double OriPrice1 = dinemenu.getDouble("OriPrice");
@@ -309,17 +368,6 @@ public class MainActivity extends Activity {
                 values.clear();
             }
             
-            
-            String menus = DineMenus.toString();
-    		ContentValues values0 = new ContentValues();
-    		
-    		values0.put("DeskId", deskid);
-    		values0.put("menus", menus);
-    		values0.put("menuid", menuid);
-    		db.insert("menutb", null, values0);
-    		values0.clear();
-    		
-    		
             String tableid = Desk.getString("Id");
             int status = jsonObject.getInt("Status");
             //Toast.makeText(getApplicationContext(), "status为："+status, Toast.LENGTH_LONG).show();
@@ -409,9 +457,9 @@ public class MainActivity extends Activity {
 			if (buttonView.getId() == R.id.radio_1) {
 				if (isChecked) {
 					getFragmentManager().beginTransaction()
-							.replace(R.id.fragment1,Global.fragment1 = new Fragment1()).commit();
+							.replace(R.id.fragment1,Global.fragment1 = new Fragment1(MainActivity.this)).commit();
 					getFragmentManager().beginTransaction()
-							.replace(R.id.fragment2,Global.fragment2 = new Fragment2()).commit();
+							.replace(R.id.fragment2,Global.fragment2 = new Fragment2(MainActivity.this)).commit();
 					titlegroup.clearCheck();
 					button9.setChecked(false);
 					button1.setChecked(true);
@@ -430,7 +478,8 @@ public class MainActivity extends Activity {
 				if (isChecked) {
 					ExitApplication.getInstance().exit();
 				}
-			} else if (buttonView.getId() == R.id.radio_7){
+			}
+			else if (buttonView.getId() == R.id.radio_7){
                 if (isChecked){
                     getFragmentManager().beginTransaction()
                             .replace(R.id.fragment1,new ChooseCheckFragment())
@@ -461,5 +510,99 @@ public class MainActivity extends Activity {
             toast.show();
         }
     }
+	
+//	public static void Bluetouch(){
+//		if(Fragment2_order.linear_inventory.getChildCount() == 1){
+//			Toast.makeText(MainActivitythis, "没有订单", Toast.LENGTH_LONG).show();
+//		}
+//		else{
+////			mService = new BluetoothService(this, mHandler);
+//			//蓝牙不可用退出程序
+//			if( mService.isBTopen() == false)
+//			{
+//	            Intent enableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+//	            startActivityForResult(enableIntent, REQUEST_ENABLE_BT);
+//			}
+//			else{
+//				Intent serverIntent = new Intent(MainActivity.this,DeviceListActivity.class);      //运行另外一个类的活动
+//  				startActivityForResult(serverIntent,REQUEST_CONNECT_DEVICE);
+//			}
+//		}
+//	}
+	
+	
+	 public void onActivityResult(int requestCode, int resultCode, Intent data) {
+	    	// TODO Auto-generated method stub
+	    	  switch (requestCode) {
+	          case REQUEST_ENABLE_BT:      //请求打开蓝牙
+	              if (resultCode == Activity.RESULT_OK) {   //蓝牙已经打开
+	            	Intent serverIntent = new Intent(MainActivity.this,DeviceListActivity.class);      //运行另外一个类的活动
+	  				startActivityForResult(serverIntent,REQUEST_CONNECT_DEVICE);
+	              } else {                 //用户不允许打开蓝牙
+	                Toast.makeText(getApplicationContext(), "Refuse to open bluetooth",Toast.LENGTH_LONG).show();
+	              }
+	              break;
+	          case  REQUEST_CONNECT_DEVICE:     //请求连接某一蓝牙设备
+	          	if (resultCode == Activity.RESULT_OK) {   //已点击搜索列表中的某个设备项
+	                  String address = data.getExtras()
+	                                       .getString(DeviceListActivity.EXTRA_DEVICE_ADDRESS);  //获取列表项中设备的mac地址
+	                  con_dev = mService.getDevByMac(address);   
+	                  
+	                  mService.connect(con_dev);
+	              }
+	          	else{
+	          		Toast.makeText(getApplicationContext(), "connect failed", Toast.LENGTH_LONG).show();
+	          	}
+	              break;
+	    	
+	    	
+	    	  }
+	    }
+	 
+	 private final  Handler mHandler = new Handler() {
+	        @Override
+	        public void handleMessage(Message msg) {
+	            switch (msg.what) {
+	            case BluetoothService.MESSAGE_STATE_CHANGE:
+	                switch (msg.arg1) {
+	                case BluetoothService.STATE_CONNECTED:   //已连接
+	                	com.qiaoxi.shopkeeper.MenuItem en = null;
+	                	String msg1 = "桌号："+Global.deskid+"    人数："+Fragment2_order.head_count_spinner.getSelectedItem().toString().trim()+"\n\n";   	
+	                	for(int i=0;i<Fragment2_order.linear_inventory.getChildCount()-1;i++){
+	                		en = (com.qiaoxi.shopkeeper.MenuItem) Fragment2_order.linear_inventory.getChildAt(i);
+	                		msg1 += en.getdishname()+en.getnotes()+"  "+"x"+en.getcount()+"\n\n";
+	                	}
+	                    mService.sendMessage(msg1+"\n", "GBK");
+	                    if (mService != null) 
+	            			mService.stop();
+	            		mService = null;
+	                    break;
+	                case BluetoothService.STATE_CONNECTING:  //正在连接
+	                	Log.d("蓝牙调试","正在连接.....");
+	                    break;
+	                case BluetoothService.STATE_LISTEN:     //监听连接的到来
+	                case BluetoothService.STATE_NONE:
+	                	Log.d("蓝牙调试","等待连接.....");
+	                    break;
+	                }
+	                break;
+	            case BluetoothService.MESSAGE_CONNECTION_LOST:    //蓝牙已断开连接
+	                Toast.makeText(getApplicationContext(), "Device connection was lost",
+	                               Toast.LENGTH_SHORT).show();
+	                if (mService != null) 
+	        			mService.stop();
+	        		mService = null;
+	                break;
+	            case BluetoothService.MESSAGE_UNABLE_CONNECT:     //无法连接设备
+	            	Toast.makeText(getApplicationContext(), "Unable to connect device",
+	                        Toast.LENGTH_SHORT).show();
+	            	if (mService != null) 
+	        			mService.stop();
+	        		mService = null;
+	            	break;
+	            }
+	        }
+	        
+	    };
 
 }

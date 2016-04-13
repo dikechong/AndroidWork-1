@@ -181,6 +181,10 @@ public class MenuItem extends RelativeLayout {
 		
 	}
 	
+	public String getdishname(){
+		return name;
+	}	
+	
 	public void setNote(String note){
 		this.note = note;
 		notestext.setText(note);
@@ -193,10 +197,19 @@ public class MenuItem extends RelativeLayout {
 	public Button getnotesbt(){
 		return notes;
 	}
+	
+	public String getnotes(){
+		return note;
+	}
 
 	public String getdishid(){
 		return dishid;
 	}
+	
+	public double getprice(){
+		return price;
+	}
+	
 	public void setting(String id,String name,String note,double price,double oriprice,int count){
 		this.dishid = id;
 		this.name = name;

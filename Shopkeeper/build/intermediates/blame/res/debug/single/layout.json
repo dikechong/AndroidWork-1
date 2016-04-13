@@ -1,0 +1,78 @@
+[
+    {
+        "merged": "E:\\AndroidWork\\Shopkeeper\\build\\intermediates\\res\\merged\\debug\\layout\\device_list.xml",
+        "source": "E:\\AndroidWork\\Shopkeeper\\res\\layout\\device_list.xml"
+    },
+    {
+        "merged": "E:\\AndroidWork\\Shopkeeper\\build\\intermediates\\res\\merged\\debug\\layout\\fragment_check.xml",
+        "source": "E:\\AndroidWork\\Shopkeeper\\res\\layout\\fragment_check.xml"
+    },
+    {
+        "merged": "E:\\AndroidWork\\Shopkeeper\\build\\intermediates\\res\\merged\\debug\\layout\\fragment2_order.xml",
+        "source": "E:\\AndroidWork\\Shopkeeper\\res\\layout\\fragment2_order.xml"
+    },
+    {
+        "merged": "E:\\AndroidWork\\Shopkeeper\\build\\intermediates\\res\\merged\\debug\\layout\\fragment_menu_content.xml",
+        "source": "E:\\AndroidWork\\Shopkeeper\\res\\layout\\fragment_menu_content.xml"
+    },
+    {
+        "merged": "E:\\AndroidWork\\Shopkeeper\\build\\intermediates\\res\\merged\\debug\\layout\\editnote.xml",
+        "source": "E:\\AndroidWork\\Shopkeeper\\res\\layout\\editnote.xml"
+    },
+    {
+        "merged": "E:\\AndroidWork\\Shopkeeper\\build\\intermediates\\res\\merged\\debug\\layout\\fragment1_main.xml",
+        "source": "E:\\AndroidWork\\Shopkeeper\\res\\layout\\fragment1_main.xml"
+    },
+    {
+        "merged": "E:\\AndroidWork\\Shopkeeper\\build\\intermediates\\res\\merged\\debug\\layout\\fragment2_main.xml",
+        "source": "E:\\AndroidWork\\Shopkeeper\\res\\layout\\fragment2_main.xml"
+    },
+    {
+        "merged": "E:\\AndroidWork\\Shopkeeper\\build\\intermediates\\res\\merged\\debug\\layout\\fragment_choose_check.xml",
+        "source": "E:\\AndroidWork\\Shopkeeper\\res\\layout\\fragment_choose_check.xml"
+    },
+    {
+        "merged": "E:\\AndroidWork\\Shopkeeper\\build\\intermediates\\res\\merged\\debug\\layout\\activity_menu.xml",
+        "source": "E:\\AndroidWork\\Shopkeeper\\res\\layout\\activity_menu.xml"
+    },
+    {
+        "merged": "E:\\AndroidWork\\Shopkeeper\\build\\intermediates\\res\\merged\\debug\\layout\\payment_listview_item.xml",
+        "source": "E:\\AndroidWork\\Shopkeeper\\res\\layout\\payment_listview_item.xml"
+    },
+    {
+        "merged": "E:\\AndroidWork\\Shopkeeper\\build\\intermediates\\res\\merged\\debug\\layout\\device_name.xml",
+        "source": "E:\\AndroidWork\\Shopkeeper\\res\\layout\\device_name.xml"
+    },
+    {
+        "merged": "E:\\AndroidWork\\Shopkeeper\\build\\intermediates\\res\\merged\\debug\\layout\\dish_liseview_item.xml",
+        "source": "E:\\AndroidWork\\Shopkeeper\\res\\layout\\dish_liseview_item.xml"
+    },
+    {
+        "merged": "E:\\AndroidWork\\Shopkeeper\\build\\intermediates\\res\\merged\\debug\\layout\\ordernumber_listview.xml",
+        "source": "E:\\AndroidWork\\Shopkeeper\\res\\layout\\ordernumber_listview.xml"
+    },
+    {
+        "merged": "E:\\AndroidWork\\Shopkeeper\\build\\intermediates\\res\\merged\\debug\\layout\\payment_dialog_layout.xml",
+        "source": "E:\\AndroidWork\\Shopkeeper\\res\\layout\\payment_dialog_layout.xml"
+    },
+    {
+        "merged": "E:\\AndroidWork\\Shopkeeper\\build\\intermediates\\res\\merged\\debug\\layout\\gridview_main.xml",
+        "source": "E:\\AndroidWork\\Shopkeeper\\res\\layout\\gridview_main.xml"
+    },
+    {
+        "merged": "E:\\AndroidWork\\Shopkeeper\\build\\intermediates\\res\\merged\\debug\\layout\\fragment1_order.xml",
+        "source": "E:\\AndroidWork\\Shopkeeper\\res\\layout\\fragment1_order.xml"
+    },
+    {
+        "merged": "E:\\AndroidWork\\Shopkeeper\\build\\intermediates\\res\\merged\\debug\\layout\\fragment_menu.xml",
+        "source": "E:\\AndroidWork\\Shopkeeper\\res\\layout\\fragment_menu.xml"
+    },
+    {
+        "merged": "E:\\AndroidWork\\Shopkeeper\\build\\intermediates\\res\\merged\\debug\\layout\\activity_main.xml",
+        "source": "E:\\AndroidWork\\Shopkeeper\\res\\layout\\activity_main.xml"
+    },
+    {
+        "merged": "E:\\AndroidWork\\Shopkeeper\\build\\intermediates\\res\\merged\\debug\\layout\\listview_footer_adddish.xml",
+        "source": "E:\\AndroidWork\\Shopkeeper\\res\\layout\\listview_footer_adddish.xml"
+    }
+]

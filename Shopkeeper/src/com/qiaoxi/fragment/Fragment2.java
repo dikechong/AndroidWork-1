@@ -42,17 +42,18 @@ import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class Fragment2 extends Fragment {
+@SuppressLint("ValidFragment") public class Fragment2 extends Fragment {
 	private View view;
 	public static GridLayout gridLayout;
-/*	public static ArrayList<String> arrayList;
-	public static ArrayList<Integer> arrayList1;*/
+	public static ArrayList<String> arrayList;//字符串
+	public static ArrayList<Integer> arrayList1;//图片
 	private long systime;
 	private Date curDate;
 	private String str;
 	public static String DeskId = "";
 	private SimpleDateFormat formatter;
 	private List<Order> list = new ArrayList<Order>();
+	private Context context;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -60,6 +61,11 @@ public class Fragment2 extends Fragment {
 		view = inflater.inflate(R.layout.fragment2_main, container, false);
 		return view;
 		
+	}
+	
+	public Fragment2(Context c) {
+		// TODO Auto-generated constructor stub
+		context = c;
 	}
 	
 	class GameThread implements Runnable{
@@ -114,28 +120,31 @@ public class Fragment2 extends Fragment {
 						String s = ta.getTableNum();
 						DeskId = ta.getTableNum();
 						Global.deskid = DeskId;
-						formatter = new SimpleDateFormat("yyyy锟斤拷MM锟斤拷dd锟斤拷  HH:mm:ss");// 指锟斤拷系统时锟斤拷锟绞�
+						formatter = new SimpleDateFormat("yyyy年MM月dd日  HH:mm:ss");// 指定系统时间格式
 						systime = System.currentTimeMillis();
 						curDate = new Date(systime);
-						str = formatter.format(curDate);// 锟窖伙拷玫锟较低呈憋拷锟斤拷式锟斤拷锟斤拷锟皆硷拷指锟斤拷锟斤拷
+						str = formatter.format(curDate);// 把获得的系统时间格式化称自己指定的
 						Order order = new Order();
 						order.setNumber(s);
 						order.setOrdernumber(systime);
 						order.setSystime(str);
+						order.setWaiterid(Global.waiterid);
+						order.setClerkid("");
+						order.setHeadcount("1");
 						list.add(order);
 						Global.ordernumber = String.valueOf(systime);
 						
 						
 						DatabaseHelper dbDatabaseHelper = new DatabaseHelper(getActivity(), 1);
 						String table = DBManagerContract.DinesTable.TABLE_NAME;
-						String[] projection1 = new String[] {"Id","BeginTime","DeskId"};
+						String[] projection1 = new String[] {"Id","BeginTime","DeskId","ClerkID","WaiterID","HeadCount"};
 						String selection = "DeskId=?";
 						String[] selectionArgs = new String[]{DeskId};
 						Cursor c = dbDatabaseHelper.query(table, projection1, selection, selectionArgs, null, null, null, null);
 						if(c!=null){
 							while(c.moveToNext()){
 								Order order2 = new Order();
-								formatter = new SimpleDateFormat("yyyy锟斤拷MM锟斤拷dd锟斤拷  HH:mm:ss");// 指锟斤拷系统时锟斤拷锟绞�
+								formatter = new SimpleDateFormat("yyyy年MM月dd日  HH:mm:ss");// 指定系统时间格式
 								str = c.getString(c.getColumnIndex("BeginTime"));
 								Date date = null;
 								try {
@@ -145,7 +154,7 @@ public class Fragment2 extends Fragment {
 									e.printStackTrace();
 								}
 								//curDate = new Date(systime);
-								//str = formatter.format(curDate);// 锟窖伙拷玫锟较低呈憋拷锟斤拷式锟斤拷锟斤拷锟皆硷拷指锟斤拷锟斤拷
+								//str = formatter.format(curDate);// 把获得的系统时间格式化称自己指定的
 								try {
 									str = formatter.format(date);
 								} catch (Exception e) {
@@ -155,14 +164,21 @@ public class Fragment2 extends Fragment {
 								order2.setNumber(c.getString(c.getColumnIndex("DeskId")));
 								order2.setSystime(str);
 								order2.setOrdernumber(Long.parseLong(c.getString(c.getColumnIndex("Id"))));
+								order2.setHeadcount(c.getString(c.getColumnIndex("HeadCount")));
+								order2.setWaiterid(c.getString(c.getColumnIndex("WaiterID")));
+								order2.setClerkid(c.getString(c.getColumnIndex("ClerkID")));
+
 								list.add(order2);
 							}
 						}
+						// Toast.makeText(Fragment2.this.getActivity(), str + systime,
+						// 0)
+						// .show();
 						getActivity().getFragmentManager().beginTransaction()
 								.replace(R.id.fragment1,Global.fragment1 =  new Fragment1_code(list))
 								.commit();
 						getActivity().getFragmentManager().beginTransaction()
-								.replace(R.id.fragment2,Global.fragment2 =  new Fragment2_order(DeskId))
+								.replace(R.id.fragment2,Global.fragment2 =  new Fragment2_order(DeskId,context))
 								.commit();
 					}
 				});
@@ -176,18 +192,18 @@ public class Fragment2 extends Fragment {
 		new Thread(new GameThread()).start();
 	
 //		class GameThread implements Runnable {
-//			锟斤拷锟斤拷public void run() {
-//			锟斤拷锟斤拷锟斤拷锟斤拷while (!Thread.currentThread().isInterrupted()) {
-//			锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷try {
-//			锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷Thread.sleep(100);
-//			锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷} catch (InterruptedException e) {
-//			锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷Thread.currentThread().interrupt();
-//			锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷}
+//			　　public void run() {
+//			　　　　while (!Thread.currentThread().isInterrupted()) {
+//			　　　　　　try {
+//			　　　　　　　　Thread.sleep(100);
+//			　　　　　　} catch (InterruptedException e) {
+//			　　　　　　　　Thread.currentThread().interrupt();
+//			　　　　　　}
 //			 
-//			锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷// 使锟斤拷postInvalidate锟斤拷锟斤拷直锟斤拷锟斤拷锟竭筹拷锟叫革拷锟铰斤拷锟斤拷
-//			锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷gridLayout.postInvalidate();
-//			锟斤拷锟斤拷锟斤拷锟斤拷}
-//			锟斤拷锟斤拷}
+//			　　　　　　// 使用postInvalidate可以直接在线程中更新界面
+//			　　　　　gridLayout.postInvalidate();
+//			　　　　}
+//			　　}
 //			}
 		
 //		gridView.setOnItemClickListener(new OnItemClickListener() {
@@ -197,10 +213,10 @@ public class Fragment2 extends Fragment {
 //					int position, long id) {
 //				textView = (TextView) view.findViewById(R.id.grid_tv);
 //				String s = (String) textView.getText();
-//				formatter = new SimpleDateFormat("yyyy锟斤拷MM锟斤拷dd锟斤拷  HH:mm:ss");// 指锟斤拷系统时锟斤拷锟绞�
+//				formatter = new SimpleDateFormat("yyyy年MM月dd日  HH:mm:ss");// 指定系统时间格式
 //				systime = System.currentTimeMillis();
-//				curDate = new Date(systime);// 锟斤拷取锟斤拷前时锟斤拷
-//				str = formatter.format(curDate);// 锟窖伙拷玫锟较低呈憋拷锟斤拷式锟斤拷锟斤拷锟皆硷拷指锟斤拷锟斤拷
+//				curDate = new Date(systime);// 获取当前时间
+//				str = formatter.format(curDate);// 把获得的系统时间格式化称自己指定的
 //				Order order = new Order();
 //				order.setNumber(s);
 //				order.setOrdernumber(systime);

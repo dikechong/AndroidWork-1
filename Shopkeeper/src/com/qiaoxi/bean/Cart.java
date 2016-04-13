@@ -10,6 +10,11 @@ public class Cart {
 	private Desk Desk;
 	private PayKind PayKind;
 	private List <OrderedMenus> OrderedMenus;
+	
+	public Cart(){
+		PriceInPoints = 0;
+		Invoice = null;
+	}
 	public int getHeadCount() {
 		return HeadCount;
 	}

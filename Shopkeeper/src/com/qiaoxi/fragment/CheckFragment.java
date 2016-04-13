@@ -57,6 +57,8 @@ public class CheckFragment extends Fragment {
         payment_filter.addAction("cn.saltyx.shiyan.paymentAdapter.MONEY_CHANGED");
         getActivity().registerReceiver(paymentReceiver_check, payment_filter);
 
+        check_map = new HashMap<>();
+
         View view = inflater.inflate(R.layout.fragment_check, container, false);
         check_listview = (ListView) view.findViewById(R.id.check_listview);
         button_check = (Button) view.findViewById(R.id.shift);
@@ -77,8 +79,15 @@ public class CheckFragment extends Fragment {
             public void onClick(View view) {
                 if (map.size() == 0){
                     Toast.makeText(getActivity(), "无订单！交接班成功", Toast.LENGTH_SHORT).show();
-                }else{
-                    if (map.equals(check_map)){
+                }else{ //如果当前存在订单
+                    boolean tmp_flag = false;
+                    for (String key: map.keySet()
+                         ) {
+                        if (!map.get(key).equals(check_map.get(key))){
+                            tmp_flag = true;break;
+                        }
+                    }
+                    if (!tmp_flag){
                         Toast.makeText(getActivity(), "交接班成功",Toast.LENGTH_SHORT).show();
                     }else
                         Toast.makeText(getActivity(), "交接班失败",Toast.LENGTH_SHORT).show();
@@ -87,8 +96,6 @@ public class CheckFragment extends Fragment {
         });
 
 
-
-        check_map = new HashMap<>();
 
         check_listview.setAdapter(new PaymentListView(getActivity(), tmp));
 

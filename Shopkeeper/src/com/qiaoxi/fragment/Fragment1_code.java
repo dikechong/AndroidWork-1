@@ -87,6 +87,20 @@ import android.widget.Toast;
 					Global.ordernumber = onordernumber;
 					LinearLayout ll_on_off = (LinearLayout) view.findViewById(R.id.ll_on_off);
 					TextView delete = (TextView) ll_on_off.findViewById(R.id.order_menu_delete);
+					Global.headcount = (TextView) ll_on_off.findViewById(R.id.head_count);
+					String[] pro = new String[]{"HeadCount"};
+					String[] seleargs = new String[]{onordernumber};
+					Cursor headcountc = dbhelper.query(DBManagerContract.DinesTable.TABLE_NAME, pro , "Id=?", seleargs, null, null, null, null);
+					if(headcountc!=null){
+						if(headcountc.getCount()==0){
+							Fragment2_order.head_count_spinner.setSelection(0);
+						}
+						else{
+							while(headcountc.moveToNext()){
+								Fragment2_order.head_count_spinner.setSelection(headcountc.getInt(headcountc.getColumnIndex("HeadCount"))-1);
+							}
+						}
+					}
 					delete.setOnClickListener(new OnClickListener() {
 						
 						@Override
@@ -153,6 +167,25 @@ import android.widget.Toast;
 											dbhelper.update(DBManagerContract.DineMenusTable.TABLE_NAME, values, sele, seleargs);
 											values.clear();	
 										}
+										
+										double totolprice = 0.0;
+										for(int i = 0;i<Fragment2_order.linear_inventory.getChildCount();i++){
+											MenuItem r = (MenuItem) Fragment2_order.linear_inventory.getChildAt(i);
+											totolprice += Double.valueOf(r.getprice()*r.getcount());
+										}
+										Fragment2_order.should_pay.setText(String.valueOf(totolprice));
+										//already_pay.setText("0");
+										double left = Double.valueOf(Fragment2_order.discount_pay.getText().toString())-Double.valueOf(Fragment2_order.already_pay.getText().toString().trim());
+										double giveback = -left;
+										if(giveback<0){
+											giveback = 0;
+										}
+										if(left<0){
+											left = 0;
+										}
+										Fragment2_order.left_to_pay.setText(String.valueOf(left));
+
+										Fragment2_order.give_back.setText(String.valueOf(giveback));
 									}
 									
 									@Override
@@ -164,6 +197,25 @@ import android.widget.Toast;
 										String[] seleargs = new String[]{Global.ordernumber,me.getdishid()};
 										dbhelper.update(DBManagerContract.DineMenusTable.TABLE_NAME, values, sele, seleargs);
 										values.clear();
+										double totolprice = 0.0;
+										for(int i = 0;i<Fragment2_order.linear_inventory.getChildCount();i++){
+											MenuItem r = (MenuItem) Fragment2_order.linear_inventory.getChildAt(i);
+											totolprice += Double.valueOf(r.getprice()*r.getcount());
+										}
+										Fragment2_order.should_pay.setText(String.valueOf(totolprice));
+										//already_pay.setText("0");
+										double left = Double.valueOf(Fragment2_order.discount_pay.getText().toString())-Double.valueOf(Fragment2_order.already_pay.getText().toString().trim());
+										double giveback = -left;
+										if(giveback<0){
+											giveback = 0;
+										}
+										if(left<0){
+											left = 0;
+										}
+										Fragment2_order.left_to_pay.setText(String.valueOf(left));
+
+										Fragment2_order.give_back.setText(String.valueOf(giveback));
+										
 									}
 									
 									@Override
@@ -173,7 +225,7 @@ import android.widget.Toast;
 										//获得填充的视图
 										View view=View.inflate(getActivity(), R.layout.editnote, null);
 										//获取组件
-										GridView gv_editNote=(GridView) view.findViewById(R.id.gv_note);
+										final GridView gv_editNote=(GridView) view.findViewById(R.id.gv_note);
 										//gv_editNote.setBackground(Fragment2_order.this.getResources().getDrawable(R.drawable.notes_bt));
 										//绑定适配器
 										noteSource=new ArrayList<String>();
@@ -206,59 +258,79 @@ import android.widget.Toast;
 
 											@Override
 											public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-												// TODO Auto-generated method stub
+
 												//是否点击了添加按钮
 												if(position==noteSource.size()){
 													// 执行添加
-													
 												}
-//												else{
-//													ColorDrawable colorDrawable=(ColorDrawable) view.getBackground();
-//													int colorId=colorDrawable.getColor();
-//													//更改背景颜色，设置备注
-//													if(colorId==getActivity().getResources().getColor(R.color.Mypink)){
-//														view.setBackgroundColor(getActivity().getResources().getColor(R.color.Myblue));
-//														if(noteSource.get((int) (id)).equals(tv_note1.getText())){
-//															tv_note1.setText(tv_note2.getText()); 
-//															tv_note2.setText(tv_note3.getText()); 
-//															tv_note3.setText("");
-//														}
-//														else if(noteSource.get((int) (id)).equals(tv_note2.getText())){
-//															tv_note2.setText(tv_note3.getText()); 
-//															tv_note3.setText("");
-//														}
-//														else if (noteSource.get((int) (id)).equals(tv_note3.getText())) {
-//															tv_note3.setText("");
-//														}
-//													}
-//													else{
-//														if(noteSource.get((int) (id)).equals(tv_note1.getText())){
-//															tv_note1.setText(tv_note2.getText()); 
-//															tv_note2.setText(tv_note3.getText()); 
-//															tv_note3.setText("");
-//														}
-//														else if(noteSource.get((int) (id)).equals(tv_note2.getText())){
-//															tv_note2.setText(tv_note3.getText()); 
-//															tv_note3.setText("");
-//														}
-//														else if(noteSource.get((int) (id)).equals(tv_note3.getText())){
-//															tv_note3.setText("");
-//														}
-//														else if(tv_note1.getText().equals("")){
-//															tv_note1.setText(noteSource.get((int) id));
-//															view.setBackgroundColor(getActivity().getResources().getColor(R.color.Mypink));
-//														}
-//														else if(tv_note2.getText().equals("")){
-//															tv_note2.setText(noteSource.get((int) id));
-//															view.setBackgroundColor(getActivity().getResources().getColor(R.color.Mypink));
-//														}
-//														else if(tv_note3.getText().equals("")){
-//															tv_note3.setText(noteSource.get((int) id));
-//															view.setBackgroundColor(getActivity().getResources().getColor(R.color.Mypink));
-//														}
-//													}
-													
-//												} 
+												else{
+													ColorDrawable colorDrawable=(ColorDrawable) view.getBackground();
+													int colorId=colorDrawable.getColor();
+													//更改背景颜色，设置备注
+													if(colorId==getActivity().getResources().getColor(R.color.Mypink)){
+														view.setBackgroundColor(getActivity().getResources().getColor(R.color.Myblue));
+														gv_editNote.setId(gv_editNote.getId()-1);
+														String notes= "";
+														String[] seleargs = new String[]{Global.ordernumber,me.getdishid()};
+														dbhelper.delete(DBManagerContract.DineMenuRemarksTable.TABLE_NAME, "tDineMenu_DineId = ? and DineMenu_MenuId=?", seleargs);
+														for(int i = 0;i<gv_editNote.getCount();i++){
+															View v = parent.getChildAt(i);
+															ColorDrawable viewcolor=(ColorDrawable) v.getBackground();
+															if(viewcolor.getColor()==getActivity().getResources().getColor(R.color.Mypink)){
+																notes += noteSource.get(i)+" ";
+																String[] projection = new String[]{"Id"};
+																String[] selectionargs = new String[]{noteSource.get(i)};
+																Cursor remarksc = dbhelper.query(DBManagerContract.RemarksTable.TABLE_NAME, null, "Name=?", selectionargs, null, null, null, null);
+																int remarkid = 0;
+																if(remarksc!=null){
+																	while(remarksc.moveToNext()){
+																		remarkid = remarksc.getInt(remarksc.getColumnIndex("Id"));
+																	}
+																}
+																ContentValues values = new ContentValues();
+																values.put("DineMenu_DineId", Global.ordernumber);
+																values.put("DineMenu_MenuId", me.getdishid());
+																values.put("Remark_Id", remarkid);
+																dbhelper.insert(DBManagerContract.DineMenuRemarksTable.TABLE_NAME, values);
+															}
+														}
+														me.setNote(notes);
+
+													}
+													else{
+														if(gv_editNote.getId()<3){
+															view.setBackgroundColor(getActivity().getResources().getColor(R.color.Mypink));
+															gv_editNote.setId(gv_editNote.getId()+1);
+															
+															String notes= "";
+															String[] seleargs = new String[]{Global.ordernumber,me.getdishid()};
+															dbhelper.delete(DBManagerContract.DineMenuRemarksTable.TABLE_NAME, "tDineMenu_DineId = ? and DineMenu_MenuId=?", seleargs);
+															for(int i = 0;i<gv_editNote.getCount();i++){
+																View v = parent.getChildAt(i);
+																ColorDrawable viewcolor=(ColorDrawable) v.getBackground();
+																if(viewcolor.getColor()==getActivity().getResources().getColor(R.color.Mypink)){
+																	notes += noteSource.get(i)+" ";
+																	String[] projection = new String[]{"Id"};
+																	String[] selectionargs = new String[]{noteSource.get(i)};
+																	Cursor remarksc = dbhelper.query(DBManagerContract.RemarksTable.TABLE_NAME, null, "Name=?", selectionargs, null, null, null, null);
+																	int remarkid = 0;
+																	if(remarksc!=null){
+																		while(remarksc.moveToNext()){
+																			remarkid = remarksc.getInt(remarksc.getColumnIndex("Id"));
+																		}
+																	}
+																	ContentValues values = new ContentValues();
+																	values.put("DineMenu_DineId", Global.ordernumber);
+																	values.put("DineMenu_MenuId", me.getdishid());
+																	values.put("Remark_Id", remarkid);
+																	dbhelper.insert(DBManagerContract.DineMenuRemarksTable.TABLE_NAME, values);
+																}
+															}
+															me.setNote(notes);
+															
+														}
+													}
+												}
 											}
 										});
 										//点击编辑图片跳出popupwindow
@@ -273,14 +345,14 @@ import android.widget.Toast;
 								Fragment2_order.linear_inventory.addView(me, params);
 							}
 							double totolprice = 0.0;
+							totolprice = 0.0;
 							for(int i = 0;i<Fragment2_order.linear_inventory.getChildCount();i++){
-								RelativeLayout r = (RelativeLayout) Fragment2_order.linear_inventory.getChildAt(i);
-								TextView text = (TextView) r.getChildAt(3);
-								totolprice += Double.valueOf(text.getText().toString().trim());			
+								MenuItem r = (MenuItem) Fragment2_order.linear_inventory.getChildAt(i);
+								totolprice += Double.valueOf(r.getprice()*r.getcount());
 							}
 							Fragment2_order.should_pay.setText(String.valueOf(totolprice));
 							//already_pay.setText("0");
-							double left = totolprice-Double.valueOf(Fragment2_order.already_pay.getText().toString().trim()); 
+							double left = Double.valueOf(Fragment2_order.discount_pay.getText().toString())-Double.valueOf(Fragment2_order.already_pay.getText().toString().trim());
 							double giveback = -left;
 							if(giveback<0){
 								giveback = 0;
@@ -288,8 +360,8 @@ import android.widget.Toast;
 							if(left<0){
 								left = 0;
 							}
-							Fragment2_order.left_to_pay.setText(String.valueOf(left));			
-							
+							Fragment2_order.left_to_pay.setText(String.valueOf(left));
+
 							Fragment2_order.give_back.setText(String.valueOf(giveback));
 						}
 					}
