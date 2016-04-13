@@ -29,8 +29,8 @@ public class SocketService extends Service {
     private int port;
     private DataInputStream input;
     private PrintStream output;
-    Thread thread_socket;
-    Thread thread_rc;
+    private Thread thread_socket;
+    private Thread thread_rc;
     private Boolean iskilled;
     private Boolean isOn;
     public SocketService(){
