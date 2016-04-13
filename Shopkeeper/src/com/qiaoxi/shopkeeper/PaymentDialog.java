@@ -30,6 +30,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by shiyan on 2016/4/13.
@@ -51,8 +52,9 @@ public class PaymentDialog extends Dialog{
     private TextView shouldPay, discountPay, alreadyPay, leftToPay, giveBack;
 
     //数据
-    Map<String, Double> payment_map, discount_map;
-    ArrayList<String> payment;
+    private Map<String, Double> payment_map, discount_map;
+    private ArrayList<String> payment;
+    public Double alPay;
 
     public PaymentDialog(Context context){
         super(context);
@@ -67,6 +69,7 @@ public class PaymentDialog extends Dialog{
         discount_map.clear();
         payment_map.clear();
         payment.clear();
+        alPay = 0.0;
     }
 
     public void onCreate(Bundle savedInstanceState){
@@ -104,8 +107,8 @@ public class PaymentDialog extends Dialog{
         confirm_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                context.unregisterReceiver(paymentReceiver);
-                dismiss();;
+                //清空操作
+                dismiss();
             }
         });
 
@@ -120,12 +123,6 @@ public class PaymentDialog extends Dialog{
                 try{
                     d = Double.valueOf(charSequence.toString());
                 }catch (Exception e){
-                    try{
-                        charSequence = charSequence.subSequence(0,charSequence.length()-1);
-                        d = Double.valueOf(charSequence.toString());
-                    }catch (Exception e1){
-                        e1.printStackTrace();
-                    }
                     e.printStackTrace();
                     Log.d(TAG, e.toString());
                 }
@@ -133,7 +130,7 @@ public class PaymentDialog extends Dialog{
                 discountPay.setText(String.valueOf(_t*d / 100));
                 //should_pay.setText(String.valueOf(Global.should_pay*d / 100));
                 float left = Float.valueOf(discountPay.getText().toString().trim())
-                        -Float.valueOf(discountPay.getText().toString().trim());
+                        -Float.valueOf(alreadyPay.getText().toString().trim());
                 float giveback = -left;
 
                 if(giveback<0){
@@ -155,6 +152,12 @@ public class PaymentDialog extends Dialog{
 
     }
 
+    public void dismiss(){
+        super.dismiss();
+        Global.ClearDataForPayDetail();
+        context.unregisterReceiver(paymentReceiver);
+
+    }
     public void setDiscount(String discountMethod){
         try{
             /*一下均为会员打折方案
@@ -238,12 +241,12 @@ public class PaymentDialog extends Dialog{
 
             String t_payment = intent.getStringExtra("payment");
             Double t_money = intent.getDoubleExtra("money",0);
-            Global.al -= payment_map.get(t_payment);
-            Global.al += t_money;
+            alPay -= payment_map.get(t_payment);
+            alPay += t_money;
             payment_map.put(t_payment, t_money);
 
             Log.d(TAG, String.valueOf(t_money));
-            alreadyPay.setText(String.valueOf(Global.al));
+            alreadyPay.setText(String.valueOf(alPay));
             double left = Double.valueOf(discountPay.getText().toString().trim())
                     -Double.valueOf(alreadyPay.getText().toString().trim());
             double giveback = -left;

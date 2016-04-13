@@ -4,26 +4,26 @@
     api-level="18"
     density="tvdpi"
     format="7"
-    timestamp="1378017964908527" >
+    timestamp="1382293088051973" >
 
     <task
         name="javac"
-        duration="1004" />
+        duration="2533" />
     <task
         name="instant-run-dex"
         duration="0" />
     <task
         name="instant-run-transform"
-        duration="90" />
+        duration="188" />
     <task
         name="verifier"
-        duration="8" />
+        duration="29" />
 
     <artifact
         location="E:\AndroidWork\Shopkeeper\build\outputs\apk\Shopkeeper-debug.apk"
         type="MAIN" />
 
-    <build timestamp="1378017964908527" >
+    <build timestamp="1382293088051973" >
         <artifact
             location="E:\AndroidWork\Shopkeeper\build\outputs\apk\Shopkeeper-debug.apk"
             type="MAIN" />

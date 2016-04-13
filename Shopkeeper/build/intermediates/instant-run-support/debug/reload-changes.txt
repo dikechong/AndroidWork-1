@@ -1,2 +1,12 @@
+CHANGED,E:\AndroidWork\Shopkeeper\build\intermediates\transforms\instantRun\debug\folders\4000\5\enhanced\com\qiaoxi\shopkeeper\PaymentDialog$3$override.class
+CHANGED,E:\AndroidWork\Shopkeeper\build\intermediates\transforms\instantRun\debug\folders\4000\5\enhanced\com\qiaoxi\shopkeeper\PaymentDialog$1$override.class
+CHANGED,E:\AndroidWork\Shopkeeper\build\intermediates\transforms\instantRun\debug\folders\4000\5\enhanced\com\qiaoxi\shopkeeper\PaymentDialog$2$override.class
 CHANGED,E:\AndroidWork\Shopkeeper\build\intermediates\transforms\instantRun\debug\folders\4000\5\enhanced\com\qiaoxi\fragment\Fragment2_order$override.class
+CHANGED,E:\AndroidWork\Shopkeeper\build\intermediates\transforms\instantRun\debug\folders\4000\5\enhanced\com\qiaoxi\fragment\Fragment2_order$ClickListener$override.class
+CHANGED,E:\AndroidWork\Shopkeeper\build\intermediates\transforms\instantRun\debug\folders\4000\5\enhanced\com\qiaoxi\fragment\Fragment2_order$12$1$override.class
 CHANGED,E:\AndroidWork\Shopkeeper\build\intermediates\transforms\instantRun\debug\folders\4000\5\enhanced\com\android\tools\fd\runtime\AppPatchesLoaderImpl.class
+CHANGED,E:\AndroidWork\Shopkeeper\build\intermediates\transforms\instantRun\debug\folders\4000\5\enhanced\com\qiaoxi\fragment\Fragment2_order$ToastMessageTask$override.class
+CHANGED,E:\AndroidWork\Shopkeeper\build\intermediates\transforms\instantRun\debug\folders\4000\5\enhanced\com\qiaoxi\fragment\Fragment2_order$ClickListener$1$override.class
+CHANGED,E:\AndroidWork\Shopkeeper\build\intermediates\transforms\instantRun\debug\folders\4000\5\enhanced\com\qiaoxi\fragment\Fragment2_order$12$override.class
+CHANGED,E:\AndroidWork\Shopkeeper\build\intermediates\transforms\instantRun\debug\folders\4000\5\enhanced\com\qiaoxi\shopkeeper\PaymentDialog$PaymentReceiver$override.class
+CHANGED,E:\AndroidWork\Shopkeeper\build\intermediates\transforms\instantRun\debug\folders\4000\5\enhanced\com\qiaoxi\shopkeeper\PaymentDialog$override.class

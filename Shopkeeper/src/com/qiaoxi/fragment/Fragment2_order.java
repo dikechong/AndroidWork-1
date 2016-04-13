@@ -59,6 +59,7 @@ import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.ColorStateList;
@@ -268,10 +269,10 @@ import android.widget.Toast;
 				
 			}
 		});
-        
-        
-		
-		
+
+
+
+
 		/*TODO:添加部分*/
 		discount_pay = (TextView) v.findViewById(R.id.discount_pay);
 		//TODO:支付成功之后的操作
@@ -1073,7 +1074,9 @@ import android.widget.Toast;
 					PaymentDialog dialog = new PaymentDialog(getActivity());
 					dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 					dialog.show();
-
+					if(!dialog.isShowing()){
+						dialog.dismiss();
+					}
 					//*888888888888888888
 					//final String json ="{\"Cart\": {\"HeadCount\": "+linear_inventory.getChildCount()+",\"Price\": "+100+",\"PriceInPoints\": null,\"Invoice\":null,\"Desk\": {\"Id\": \"102\"},\"PayKind\": {\"Id\":1},\"OrderedMenus\":[{\"Id\":10004,\"Ordered\": 2,\"Remarks\":null}]},\"CartAddition\": {\"UserId\": 002}}";
 

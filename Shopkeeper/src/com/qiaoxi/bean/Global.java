@@ -26,11 +26,20 @@ public class Global {
     public static String ordernumber;
     public static String waiterid;
     public static String deskid;
-    public static Double al = 0.0;//已经支付的
+    //public static Double al = 0.0;//已经支付的
+
     //用于和dailog传值
     public static String shouldPay;
     public static String discountPay;
     public static String alreadyPay;
     public static String leftToPay;
     public static String giveBack;
+    public static void ClearDataForPayDetail(){
+
+        shouldPay = "0";
+        discountPay = "0";
+        alreadyPay = "0";
+        leftToPay = "0";
+        giveBack = "0";
+    }
 }
